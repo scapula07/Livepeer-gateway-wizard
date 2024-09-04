@@ -9,8 +9,7 @@ export default function MidSection() {
               <img 
                 src={imgSrc}
 
-              />
-              
+              />      
               <div className='w-full h-full  absolute z-10 top-0 '>
                    <div className='w-full flex justify-center py-9'>
                      <video 
