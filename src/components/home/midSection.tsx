@@ -7,14 +7,14 @@ export default function MidSection() {
     <div className='w-full py-10 flex justify-center font-mono'>
            <div className='relative w-full flex justify-center'>
               <img 
-                src={"./globe.gif"}
+                src={imgSrc}
 
               />
               
               <div className='w-full h-full  absolute z-10 top-0 '>
                    <div className='w-full flex justify-center py-9'>
                      <video 
-                       src={"./video.mp4"}
+                       src={videoSrc}
                        className="w-1/4 rounded-sm"
                        autoPlay
                        controls
@@ -93,3 +93,7 @@ const Banner = () => {
     </div>
   );
 };
+
+
+const imgSrc="https://firebasestorage.googleapis.com/v0/b/reach-nft-auction.appspot.com/o/order%2Fglobe.gif?alt=media&token=9759fc81-5d0a-4786-b046-11de5f2af50d"
+const videoSrc="https://firebasestorage.googleapis.com/v0/b/reach-nft-auction.appspot.com/o/order%2Fvideo.mp4?alt=media&token=0e6abfd2-ed4d-4f25-a090-eeeff678ecd6"

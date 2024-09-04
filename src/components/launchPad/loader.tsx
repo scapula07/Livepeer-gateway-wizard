@@ -9,8 +9,9 @@ export default function Loader() {
                      color='orange'
                      size={"30px"}
                   />
-                 <div className=''>
-                      <h5 className='font-semibold'>Launching Your Gateway</h5>
+                 <div className='flex flex-col items-center'>
+                      <h5 className='font-semibold'>Launching Your Gateway...</h5>
+                      <h5 className='text-sm'>This might take some minutes</h5>
 
                  </div>
 

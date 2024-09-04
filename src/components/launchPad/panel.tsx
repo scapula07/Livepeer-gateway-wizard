@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Panel({next}:{next:Number}) {
+   console.log(next,"next")
   return (
     <div className='flex flex-col px-10 space-y-4'>
           { [
@@ -22,11 +23,17 @@ export default function Panel({next}:{next:Number}) {
 
 
               ].map((tab)=>{
+                console.log(tab.value===next)
             return(
                 <>
                 <div className='flex flex-col space-y-1'>
                     <h5 className='text-xs text-slate-500'>{tab?.label}</h5>
-                    <h5 className={`text-slate-500 text-sm font-semibold ${next===tab?.value && "text-black"}`}>{tab?.desc}</h5>
+                    <h5 className={`
+                      ${next===tab?.value?'text-black text-sm font-semibold':
+                        'text-slate-500 text-sm font-semibold'}`}
+                     >
+                      {tab?.desc}
+                    </h5>
                 </div>
                  { 
                    tab?.desc !="Launch"&&
