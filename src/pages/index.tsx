@@ -4,7 +4,8 @@ import Header from "@/components/home/header";
 import Hero from "@/components/home/hero";
 import MidSection from "@/components/home/midSection";
 import Guide from "@/components/home/guide";
-import CTA from "@/components/home/cta";
+import FAQ from "@/components/home/faq";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,8 @@ export default function Home() {
            <Hero />
            <MidSection />
            <Guide />
-           <CTA />
+           <FAQ />
+           <Footer/>
          </div>
         
 

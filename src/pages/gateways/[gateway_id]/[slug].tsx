@@ -5,7 +5,7 @@ export default function Gateway() {
   return (
     <Layout>
            <div>
-                ii
+                Dashboard
           </div>
 
     </Layout>

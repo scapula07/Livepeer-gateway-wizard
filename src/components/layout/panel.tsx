@@ -2,10 +2,12 @@ import React,{useState} from 'react'
 import { AiOutlineGateway } from "react-icons/ai";
 import { CiWavePulse1,CiSettings } from "react-icons/ci";
 import { TbWaveSawTool } from "react-icons/tb";
-import { MdHistory } from "react-icons/md";
+import { MdHistory ,MdDashboardCustomize} from "react-icons/md";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Gateways from '@/pages/gateways';
+import { FaEthereum } from "react-icons/fa";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 
 export default function Panel() {
@@ -54,20 +56,25 @@ export default function Panel() {
                   <div className='flex flex-col space-y-2 py-2'>
                       <h5 className='text-sm font-semibold'>{gateway_id} Gateway</h5>
                        {[  {
-                           icon:<AiOutlineGateway />,
+                           icon:<MdDashboardCustomize />,
                            label:"Dashboard",
                            link:`/gateways/${gateway_id}/dashboard`
                          },
                          {
-                           icon:< MdHistory />,
+                           icon:< FaEthereum/>,
                            label:"Fund Gateway",
                            link:`/gateways/${gateway_id}/fund`
                          },
                          {
-                           icon:< TbWaveSawTool/>,
+                           icon:< CiSettings/>,
                            label:"Settings & Configuration",
                            link:`/gateways/${gateway_id}/settings`
                          },
+                         {
+                          icon:< FaDeleteLeft style={{color:"red"}}/>,
+                          label:"Terminate",
+                          link:`/gateways/${gateway_id}/settings`
+                        },
                       
                        ].map((tab,i)=>{
                        return(
