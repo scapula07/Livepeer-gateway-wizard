@@ -7,11 +7,11 @@ export default function Header() {
          <div className='flex items-center w-full'>
              <div className='w-1/2'>
                  
-                 <h5 className='font-semibold text-lg flex items-center'>
+                 <h5 className='font-semibold text-lg flex '>
                   <IoBalloon 
                    className='text-green-500'
                   />
-                  <span> GATEWAY WIZARD</span>
+                  <span className='pt-2'> GATEWAY WIZARD</span>
                  
                 </h5>
 
