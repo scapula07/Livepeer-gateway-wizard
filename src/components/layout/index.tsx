@@ -14,7 +14,7 @@ export default function Layout({children}:Props) {
                      <div className='w-1/3 h-full'>
                          <Panel />
                      </div>
-                     <div className='w-full  oveflow-y-scroll h-full '>
+                     <div className='w-full  oveflow-y-scroll h-full no-scrollbar'>
                           {children}      
                      </div>
                 </div>

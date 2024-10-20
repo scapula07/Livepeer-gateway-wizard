@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from './header'
+import Link from 'next/link'
 
 export default function Hero() {
   return (
@@ -13,7 +14,9 @@ export default function Hero() {
                             <h5 className='text-6xl font-semibold '> Livepeer Media</h5>
                             <h5 className='text-6xl font-semibold '>Server</h5>
                       </div>
-                      <button className='bg-[#344E41] text-white font-semibold py-7 w-1/2'>Launch Gateway</button>              
+                      <Link href={'/auth/signup'}>
+                          <button className='bg-[#344E41] text-white font-semibold py-7 w-1/2'>Launch Gateway</button>   
+                      </Link>          
                    </div>
                     <div className='w-3/5'>
                         <div className='w-full relative'>
@@ -25,11 +28,8 @@ export default function Hero() {
                              </div>
 
                         </div>
-
                     </div>
-
                 </div>
-
         </div>
     </div>
   )

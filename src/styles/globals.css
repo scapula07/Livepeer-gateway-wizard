@@ -34,6 +34,17 @@ body {
 
 
 
+#nprogress .bar {
+  background: green !important;
+  border: 1px solid green !important;
+} 
+
+/* Globals */
+.no-scrollbar::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+}
+
 
 
 @keyframes slide {

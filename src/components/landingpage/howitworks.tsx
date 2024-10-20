@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 export default function HowItWorks() {
   return (
     <div className='py-28 flex flex-col w-full items-center'>
@@ -10,6 +11,9 @@ export default function HowItWorks() {
                         <p className='bg-black w-1/2 h-0.5'></p>
                     </h5>
                </div>
+               <img 
+                 src='/workflow.png'
+               />
           
 
     </div>

@@ -15,7 +15,7 @@ export default function Panel() {
     const pathname = router.pathname;
     const { gateway_id } = router.query;
     const [active,setActive]=useState(`/gateways/${gateway_id}/dashboard`)
-    console.log(gateway_id,pathname,"id")
+  
   return (
     <div className='w-full h-full flex flex-col font-mono'>
           <div className='flex flex-col space-y-2 border-b py-2'>
@@ -40,7 +40,7 @@ export default function Panel() {
                     <Link href={tab?.link}>
                           <div 
                             className={
-                              `  flex w-full items-center space-x-4 ${tab?.link===pathname?'bg-green-200 text-green-800':'bg-white'} 
+                              `  flex w-full items-center space-x-4 ${tab?.link===pathname?'bg-[#58815794] ':'bg-white'} 
                                  px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-black
                               `}
                             key={i} > 
@@ -81,7 +81,7 @@ export default function Panel() {
                            <Link href={tab?.link}>
                                  <div 
                                    className={
-                                     `  flex w-full items-center space-x-4 ${tab?.link===active?'bg-green-200 text-green-800':'bg-white'} 
+                                     `  flex w-full items-center space-x-4 ${tab?.link===active?'bg-[#58815794] ':'bg-white'} 
                                         px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-black
                                      `}
                                    key={i} 

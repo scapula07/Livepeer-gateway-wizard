@@ -1,6 +1,9 @@
 import React from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Bottomsection() {
+    const {replace}=useRouter()
   return (
     <div className='w-full'>
         <div className='bg-[#DAD7CD] flex flex-col items-center w-full py-20  space-y-14 '>
@@ -12,7 +15,14 @@ export default function Bottomsection() {
               </div>
 
               <h5>Run Low cost Media Infrastructure</h5>
-              <button className='bg-[#344E41] text-white font-semibold py-5 w-1/5'>Launch Gateway</button>       
+            
+                 <button className='bg-[#344E41] text-white font-semibold py-5 w-1/5'
+                   onClick={()=>replace('/auth/signup')}
+                  >
+                  Launch Gateway
+                </button>     
+              
+              
                           
         </div>
 

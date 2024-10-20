@@ -1,5 +1,6 @@
 import React from 'react'
 import { IoBalloon } from "react-icons/io5";
+import Link from 'next/link';
 
 export default function Header() {
   return (
@@ -15,7 +16,10 @@ export default function Header() {
                     <h5 className='font-semibold '>Home</h5>
                     <h5 className='font-light '>Blog</h5>
                     <h5 className='font-light '>Contact us</h5>   
-                    <button className='border bg-[] px-6 py-1.5 border-[#1E1E1E]'>Sign in</button>         
+                    <Link href="/auth/login">
+                       <button className='border bg-[] px-6 py-1.5 border-[#1E1E1E]'>Sign in</button>      
+                    </Link>
+              
             </div> 
 
          </div>
