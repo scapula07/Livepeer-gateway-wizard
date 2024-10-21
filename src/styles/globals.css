@@ -37,7 +37,7 @@ body {
 
 
 #nprogress .bar {
-  background: green !important;
+  background: red !important;
   border: 1px solid green !important;
 } 
 

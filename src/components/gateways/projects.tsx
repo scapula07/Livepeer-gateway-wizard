@@ -11,33 +11,33 @@ import { db } from '@/firebase/config';
 import Modal from "../modal"
  
 type GATEWAY={
-    id:string,
-    title:string
+  id:string
+  creator:string,
+  createdAt:string,
+  title:string,
+  cover:string
 }
 
 export default function Projects() {
    const {replace}=useRouter()
    const user=useRecoilValue(userStore) as {id:string}
    const [isLoading,setLoading]=useState<boolean>(false)
-  const [gateways,setGateways]=useState<GATEWAY[]>([]) 
+   const [gateways,setGateways]=useState<GATEWAY[]>([]) 
+   const [gateway,setGateway]=useState<GATEWAY>()
    
    useEffect(()=>{
-    const q = query(collection(db, "gateways"),orderBy("createdAt","desc"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const instances:any= []
-        querySnapshot.forEach((doc) => {
-           instances.push({ ...doc.data(), id: doc.id })
-        });
-        setGateways(instances) 
-      });
+        gatewayApi.getGateways().then((res:GATEWAY[])=>{
+            setGateways(res)
+        }).catch()
    },[])
 
    const createInstance=async()=>{
           setLoading(true)
        try{
             const response =await gatewayApi.createInstance(user?.id)
-            response&&setLoading(false)
-            replace('/launch-pad')
+            response?.status&&setGateway(response.data)
+            response?.status&&setLoading(false)
+            replace({pathname:`/launch-pad/`,query:{id:`${response?.data?.id}`}})
         }catch(e){
             setLoading(false)
         }
@@ -54,7 +54,7 @@ export default function Projects() {
                  <div className={`bg-slate-100 w-full h-28 rounded-sm font-semibold flex flex-col items-center justify-center hover:bg-slate-200 
                      transition duration-300 ease-in-out ${
                       isLoading && 'animate-pulse opacity-75 cursor-not-allowed'}`}
-                     onClick={()=>!isLoading&&createInstance()}
+                      onClick={()=>!isLoading&&createInstance()}
                       >
                         <h5>Launch</h5>
                         <h5 className='text-sm '>A New Gateway</h5>
