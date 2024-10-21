@@ -20,3 +20,14 @@ export interface GenerationOutput {
       seed?: number;
     }>;
   }
+
+
+
+  export interface DeploymentParams {
+     gateway_type:string
+     provider:string 
+     region:string
+     gateway_name:string
+     rpc_url:string
+     password:string
+  }

@@ -1,5 +1,5 @@
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { SDAPI } from "./imageGen";
+import { SDAPI } from "./api/imageGen.api";
 
 const storage = getStorage();
 

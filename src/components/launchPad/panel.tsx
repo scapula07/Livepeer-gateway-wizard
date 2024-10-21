@@ -1,7 +1,7 @@
 import React from 'react'
 
+
 export default function Panel({next}:{next:Number}) {
-   console.log(next,"next")
   return (
     <div className='flex flex-col px-10 space-y-4'>
           { [

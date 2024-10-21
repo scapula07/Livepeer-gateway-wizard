@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './header'
 import Link from 'next/link'
 
+
 export default function Hero() {
   return (
     <div className='w-full bg-[#A3B18A] text-[#1E1E1E]'>
@@ -20,11 +21,17 @@ export default function Hero() {
                    </div>
                     <div className='w-3/5'>
                         <div className='w-full relative'>
-                              <img 
-                                 src={"/world.png"}
-                              />
-                              <div  className='absolute bg-white top-0 h-60'>
-                                 <VideoGallery />
+                              <div className='w-full px-12 '>
+                                    <img 
+                                        src={"/world.png"}
+                                    />
+                              </div>
+                           
+                              <div  className='absolute top-0  flex w-full justify-end'>
+                                   <img 
+                                       src={"/bannervideo.png"}
+                                       className="w-[450px] -mt-20"
+                                    />
                              </div>
 
                         </div>
@@ -36,9 +43,3 @@ export default function Hero() {
 }
 
 
-const VideoGallery=()=>{
-    return(
-        <div>
-        </div>
-    )
-}

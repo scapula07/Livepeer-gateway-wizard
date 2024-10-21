@@ -1,55 +1,51 @@
 import React,{useState} from 'react'
 import { MdRadioButtonChecked,MdRadioButtonUnchecked } from "react-icons/md";
+import { DeploymentParams } from '@/lib/api/types';
 
-export default function SelectStack() {
+export default function SelectStack({data,setData}:{data:DeploymentParams,setData:any}) {
      const [type,setType]=useState("")
+     console.log(data,"Data")
   return (
     <div className='w-full h-full space-y-4'>
          <h5 className='text-xl font-semibold'>Select Livepeer Stack</h5>
          <div className='w-full min-h-[50px] bg-white shadow border  py-2'>
             <div className='px-4 border-b py-2'>
                <h5 className=' font-semibold font-mono text-[0.96rem]'> Choose a type</h5>
-               <h5 className='text-xs'> Select the type of Livepeer gateway or service you want to deploy based on your streaming needs and requirements</h5>
+               <h5 className='text-sm'> Select the type of Livepeer gateway or service you want to deploy based on your streaming needs and requirements</h5>
             </div>
-            <div className='w-full py-4 flex flex-col px-4 space-y-4'>
-                    <div className='w-full'>
-                        <h5 className=' font-semibold font-sans text-[0.8rem] text-slate-600'> Choose a type</h5>
-                        <h5 className='text-xs'>You can also create a template by scanning your existing resources in the</h5>
-                     </div>
+            <div className='w-full py-4 flex flex-col px-4 space-y-4'>            
                      <div className='w-full flex space-x-4'>
                         {[
                             {
                                 label:" Livepeer Transcoding Gateway",
-                                desc:"Launch a gateway for video transcoding on the Livepeer network."
+                                desc:"Launch a gateway for video transcoding on the Livepeer network.",
+                                type:'transcoding'
                             },
                             {
                                 label:" Livepeer AI Gateway",
-                                desc:"Deploy an AI-powered gateway to process media on Livepeer."
+                                desc:"Deploy an AI-powered gateway to process media on Livepeer.",
+                                type:'ai'
                             },
-                            {
-                                label:"Livepeer Catalyst ",
-                                desc:"Start a media server with a Livepeer Catalyst"
-                            }
 
                           ].map((tab)=>{
                              return(
-                                <div className=' flex border px-4 py-4 space-x-2'>
+                                <div className=' flex border px-4 py-6 space-x-2'>
                                 {
                                    type===tab?.label?
                                     <MdRadioButtonChecked
-                                      className='text-green-500'
-                                      onClick={()=>setType(tab?.label)} 
+                                      className='text-green-500 text-xl'
+                                      onClick={()=>{setType(tab?.label); setData({...data,gateway_type:tab?.type})}} 
                                      />
                                     :
                                     <MdRadioButtonUnchecked
-                                      className='text-green-500'
-                                      onClick={()=>setType(tab?.label)} 
-                                     />
+                                      className='text-green-500 text-xl'
+                                      onClick={()=>{setType(tab?.label); setData({...data,gateway_type:tab?.type})}} 
+                                   />
                                 }
                               
-                                <div className='flex flex-col'>
-                                    <h5 className='text-xs font-semibold'>{tab?.label}</h5>
-                                    <h5 className='text-[0.7rem] text-slate-600'>{tab?.desc}</h5>
+                                <div className='flex flex-col space-y-2'>
+                                    <h5 className='text-sm font-semibold'>{tab?.label}</h5>
+                                    <h5 className='text-[0.85rem] text-slate-600'>{tab?.desc}</h5>
                                 </div>
                     
                            </div>
@@ -65,7 +61,7 @@ export default function SelectStack() {
          <div className='w-full min-h-[50px] bg-white shadow border  py-2'>
             <div className='px-4 border-b py-2'>
                <h5 className=' font-semibold font-mono text-[0.96rem]'> Select cloud provider</h5>
-               <h5 className='text-xs'>Select a cloud service provider where your Livepeer gateway will be hosted. This determines the infrastructure your gateway will run on.</h5>
+               <h5 className='text-sm'>Select a cloud service provider where your Livepeer gateway will be hosted. This determines the infrastructure your gateway will run on.</h5>
             </div>
             <div className='w-full py-4 flex flex-col px-4 space-y-4'>
                 
@@ -73,36 +69,39 @@ export default function SelectStack() {
                         {[
                             {
                                 label:" AWS",
-                                desc:"Deploy your Livepeer gateway using Amazon Web Services"
+                                desc:"Deploy your Livepeer gateway using Amazon Web Services",
+                                provider:'aws'
                             },
                             {
                                 label:"GCP",
-                                desc:" Set up a Livepeer Catalyst on Google Cloud Platform"
+                                desc:" Set up a Livepeer Catalyst on Google Cloud Platform",
+                                provider:'gcp'
                             },
                             {
                                 label:"Your Dedicated cloud Account",
-                                desc:"Host a Livepeer Gateway on a dedicated cloud infrastructure"
+                                desc:"Host a Livepeer Gateway on a dedicated cloud infrastructure",
+                                provider:'dedicated'
                             }
 
                           ].map((tab)=>{
                              return(
-                                <div className=' flex border px-4 py-4 space-x-2'>
+                                <div className=' flex border px-4 py-6 space-x-2'>
                                 {
                                    type===tab?.label?
                                     <MdRadioButtonChecked
-                                      className='text-green-500'
-                                      onClick={()=>setType(tab?.label)} 
+                                      className='text-green-500 text-xl'
+                                      onClick={()=>{setType(tab?.label); setData({...data,provider:tab?.provider})}} 
                                      />
                                     :
                                     <MdRadioButtonUnchecked
-                                      className='text-green-500'
-                                      onClick={()=>setType(tab?.label)} 
+                                      className='text-green-500 text-xl'
+                                      onClick={()=>{setType(tab?.label); setData({...data,provider:tab?.provider})}} 
                                      />
                                 }
                               
                                 <div className='flex flex-col'>
-                                    <h5 className='text-xs font-semibold'>{tab?.label}</h5>
-                                    <h5 className='text-[0.7rem] text-slate-600'>{tab?.desc}</h5>
+                                    <h5 className='text-sm font-semibold'>{tab?.label}</h5>
+                                    <h5 className='text-[0.85rem] text-slate-600'>{tab?.desc}</h5>
                                 </div>
                     
                            </div>
@@ -135,12 +134,11 @@ export default function SelectStack() {
 
                                 ].map((tab)=>{
                                     return(
-                                        <div className=' flex border px-4 py-4 space-x-2'>
-                                        {
-                                        type===tab?.label?
+                                        <div className=' flex border px-4 py-6 space-x-2'>
+                                        { type===tab?.label?
                                             <MdRadioButtonChecked
                                             className='text-green-500'
-                                            onClick={()=>setType(tab?.label)} 
+                                              onClick={()=>setType(tab?.label)} 
                                             />
                                             :
                                             <MdRadioButtonUnchecked
@@ -150,8 +148,8 @@ export default function SelectStack() {
                                         }
                                     
                                         <div className='flex flex-col'>
-                                            <h5 className='text-xs font-semibold'>{tab?.label}</h5>
-                                            <h5 className='text-[0.7rem] text-slate-600'>{tab?.desc}</h5>
+                                            <h5 className='text-sm font-semibold'>{tab?.label}</h5>
+                                            <h5 className='text-[0.85rem] text-slate-600'>{tab?.desc}</h5>
                                         </div>
                             
                                 </div>
