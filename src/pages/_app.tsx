@@ -5,7 +5,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import Router from "next/router";
 import AuthGuard from "../components/Authguard"
-
+import { Theme } from "@radix-ui/themes";
 
 
 NProgress.configure({ showSpinner: false});
@@ -17,7 +17,9 @@ Router.events.on("routeChangeError", () => NProgress.done());
 export default function App({ Component, pageProps }: AppProps) {
   return  <RecoilRoot>
              <AuthGuard>
-               <Component {...pageProps} />
+                <Theme>
+                   <Component {...pageProps} />
+                </Theme>
              </AuthGuard>
           </RecoilRoot>;
 }
