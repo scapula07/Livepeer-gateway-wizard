@@ -3,6 +3,7 @@ import { MdRadioButtonChecked,MdRadioButtonUnchecked } from "react-icons/md";
 import { DeploymentParams } from '@/lib/api/types';
 
 export default function Configuration({data,setData}:{data:DeploymentParams,setData:any}) {
+  console.log(data)
   return (
     <div className='w-full h-full space-y-4'>
          <h5 className='text-xl font-semibold'>Specify Details</h5>
@@ -13,8 +14,8 @@ export default function Configuration({data,setData}:{data:DeploymentParams,setD
                 <div className='w-full py-2'>
                     <input 
                         className='w-full border py-1 rounded-sm outline-green-500 px-4 text-xs h-10'
-                        value={data?.gateway_name}
-                        onChange={(e)=>setData({...data,gataway_name:e.target.value})}
+                        value={data.gatewayName}
+                        onChange={(e)=>setData({...data,gatewayName:e.target.value})}
                     />
                 </div>
                 </div>
@@ -24,8 +25,8 @@ export default function Configuration({data,setData}:{data:DeploymentParams,setD
                <div className='w-full py-2'>
                   <input 
                     className='w-full border py-1 rounded-sm outline-green-500 px-4 text-xs h-10'
-                    value={data?.rpc_url}
-                    onChange={(e)=>setData({...data,rpc_url:e.target.value})}
+                    value={data.rpcUrl}
+                    onChange={(e)=>setData({...data,rpcUrl:e.target.value})}
                   />
                </div>
             </div>

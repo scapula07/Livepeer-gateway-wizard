@@ -13,7 +13,6 @@ const headers = {
 const axiosConfig = axios.create({
   baseURL: baseUrl,
   headers,
-  timeout: 60000,
   withCredentials: true,
 })
 

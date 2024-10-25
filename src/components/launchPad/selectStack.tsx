@@ -3,8 +3,10 @@ import { MdRadioButtonChecked,MdRadioButtonUnchecked } from "react-icons/md";
 import { DeploymentParams } from '@/lib/api/types';
 
 export default function SelectStack({data,setData}:{data:DeploymentParams,setData:any}) {
-     const [type,setType]=useState("")
-     console.log(data,"Data")
+     const [stack,setStack]=useState("")
+     const [provider,setProvider]=useState("")
+     const [region,setRegion]=useState("")
+    
   return (
     <div className='w-full h-full space-y-4'>
          <h5 className='text-xl font-semibold'>Select Livepeer Stack</h5>
@@ -31,15 +33,15 @@ export default function SelectStack({data,setData}:{data:DeploymentParams,setDat
                              return(
                                 <div className=' flex border px-4 py-6 space-x-2'>
                                 {
-                                   type===tab?.label?
+                                   stack===tab?.label?
                                     <MdRadioButtonChecked
                                       className='text-green-500 text-xl'
-                                      onClick={()=>{setType(tab?.label); setData({...data,gateway_type:tab?.type})}} 
+                                      onClick={()=>{setStack(tab?.label); setData({...data,gateway_type:tab?.type})}} 
                                      />
                                     :
                                     <MdRadioButtonUnchecked
                                       className='text-green-500 text-xl'
-                                      onClick={()=>{setType(tab?.label); setData({...data,gateway_type:tab?.type})}} 
+                                      onClick={()=>{setStack(tab?.label); setData({...data,gateway_type:tab?.type})}} 
                                    />
                                 }
                               
@@ -87,15 +89,15 @@ export default function SelectStack({data,setData}:{data:DeploymentParams,setDat
                              return(
                                 <div className=' flex border px-4 py-6 space-x-2'>
                                 {
-                                   type===tab?.label?
+                                   provider===tab?.label?
                                     <MdRadioButtonChecked
                                       className='text-green-500 text-xl'
-                                      onClick={()=>{setType(tab?.label); setData({...data,provider:tab?.provider})}} 
+                                      onClick={()=>{setProvider(tab?.label); setData({...data,provider:tab?.provider})}} 
                                      />
                                     :
                                     <MdRadioButtonUnchecked
                                       className='text-green-500 text-xl'
-                                      onClick={()=>{setType(tab?.label); setData({...data,provider:tab?.provider})}} 
+                                      onClick={()=>{setProvider(tab?.label); setData({...data,provider:tab?.provider})}} 
                                      />
                                 }
                               
@@ -135,15 +137,15 @@ export default function SelectStack({data,setData}:{data:DeploymentParams,setDat
                                 ].map((tab)=>{
                                     return(
                                         <div className=' flex border px-4 py-6 space-x-2'>
-                                        { type===tab?.label?
+                                        { region===tab?.label?
                                             <MdRadioButtonChecked
                                             className='text-green-500'
-                                              onClick={()=>setType(tab?.label)} 
+                                              onClick={()=>setRegion(tab?.label)} 
                                             />
                                             :
                                             <MdRadioButtonUnchecked
                                             className='text-green-500'
-                                            onClick={()=>setType(tab?.label)} 
+                                            onClick={()=>setRegion(tab?.label)} 
                                             />
                                         }
                                     

@@ -27,7 +27,7 @@ export interface GenerationOutput {
      gateway_type:string
      provider:string 
      region:string
-     gateway_name:string
-     rpc_url:string
+     gatewayName:string
+     rpcUrl:string
      password:string
   }

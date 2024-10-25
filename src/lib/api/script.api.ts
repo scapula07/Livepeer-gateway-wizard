@@ -1,5 +1,8 @@
-import { axiosConfig } from "./axios.config";
+import axios from "axios"
 import { DeploymentParams } from "./types";
+import { axiosConfig } from "./axios.config";
+
+const baseUrl="http://localhost:3003"
 
 export const _deploy = async (data: DeploymentParams) =>
-  await axiosConfig.post(data?.gateway_type==="ai"?"/deploy-ai":"/deploy-transcoding", data);
+    await axiosConfig.post("/deploy_instance", data);

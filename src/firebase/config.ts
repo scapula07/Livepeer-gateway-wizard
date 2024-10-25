@@ -5,7 +5,7 @@ import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword ,sign
 import { getMessaging , getToken,onMessage } from "firebase/messaging";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCIFa1gbo2BWLuHAo3Oozozyt5jK_UShVY",
+    apiKey: "",
     authDomain: "devspage-a55cf.firebaseapp.com",
     projectId: "devspage-a55cf",
     storageBucket: "devspage-a55cf.appspot.com",

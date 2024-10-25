@@ -25,22 +25,24 @@ export default function LaunchPad() {
                                     gateway_type:"",
                                     provider:"",
                                     region:"",
-                                    gateway_name:"",
-                                    rpc_url:"",
+                                    gatewayName:"",
+                                    rpcUrl:"",
                                     password:""
                                  })
 
      const launch=async()=>{
             setLoading(true)
             await sleep(2000);
-            setNext(next+1)
+            setNext(3)
          try{
-            // const response= await _deploy(data)
-            await sleep(3000);
-            setLoading(false)
+            const response= await _deploy(data)
+            console.log(response.data,"Deploy data")
+            response?.data&&setLoading(false)
            }catch(e){
              console.log(e)
              setLoading(false)
+             setNext(2)
+
            }
        }
 

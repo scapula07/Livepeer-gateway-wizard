@@ -23,7 +23,6 @@ export default function Panel({next}:{next:Number}) {
 
 
               ].map((tab)=>{
-                console.log(tab.value===next)
             return(
                 <>
                 <div className='flex flex-col space-y-1'>
