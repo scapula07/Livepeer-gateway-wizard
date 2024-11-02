@@ -7,7 +7,7 @@ import WalletHistory from '@/components/gateways/walletHistory'
 export default function Gateways() {
   return (
      <Layout>
-         <div className='w-full h-full flex flex-col relative'>
+         <div className='w-full h-full flex flex-col relative '>
               <Recent />
               <Projects />
               <WalletHistory />

@@ -26,10 +26,10 @@ export default function Projects() {
    const [gateway,setGateway]=useState<GATEWAY>()
    
    useEffect(()=>{
-        gatewayApi.getGateways().then((res:GATEWAY[])=>{
+        gatewayApi.getGateways(user?.id).then((res:GATEWAY[])=>{
             setGateways(res)
         }).catch()
-   },[])
+   },[user?.id])
 
    const createInstance=async()=>{
           setLoading(true)

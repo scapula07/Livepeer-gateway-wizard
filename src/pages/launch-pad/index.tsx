@@ -22,6 +22,7 @@ export default function LaunchPad() {
     }
 
      const [data,setData]=useState<DeploymentParams>({
+                                    id:gateway_id,
                                     gateway_type:"",
                                     provider:"",
                                     region:"",
@@ -35,10 +36,10 @@ export default function LaunchPad() {
             await sleep(2000);
             setNext(3)
          try{
-            const response= await _deploy(data)
-            console.log(response.data,"Deploy data")
-            response?.data&&setLoading(false)
-           }catch(e){
+             const response= await _deploy(data)
+             console.log(response,response.data,"Deploy data")
+             response?.data&&setLoading(false)
+         }catch(e){
              console.log(e)
              setLoading(false)
              setNext(2)

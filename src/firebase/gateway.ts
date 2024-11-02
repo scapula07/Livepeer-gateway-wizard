@@ -34,10 +34,10 @@ export const gatewayApi= {
             throw new Error(e)
         }
     },
-    getGateways:async function () {
+    getGateways:async function (id:string) {
             const instances:any= []
         try{
-             const q = query(collection(db, "gateways"),orderBy("createdAt","desc"));
+             const q = query(collection(db, "gateways"),where('creator',"==",id),orderBy("createdAt","desc"));
              const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((doc) => {
                 instances.push({ ...doc.data(), id: doc.id })
@@ -45,6 +45,8 @@ export const gatewayApi= {
 
               return instances
 
-         }catch(e){}
+         }catch(e){
+            console.log(e)
+         }
     }
 }

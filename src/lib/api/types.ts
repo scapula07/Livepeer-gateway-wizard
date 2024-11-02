@@ -24,6 +24,7 @@ export interface GenerationOutput {
 
 
   export interface DeploymentParams {
+     id:string
      gateway_type:string
      provider:string 
      region:string

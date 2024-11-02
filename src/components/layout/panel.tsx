@@ -1,25 +1,27 @@
 import React,{useState,useEffect} from 'react'
 import { AiOutlineGateway } from "react-icons/ai";
-import { CiWavePulse1,CiSettings } from "react-icons/ci";
+import { CiSettings } from "react-icons/ci";
 import { TbWaveSawTool } from "react-icons/tb";
 import { MdHistory ,MdDashboardCustomize} from "react-icons/md";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Gateways from '@/pages/gateways';
 import { FaEthereum } from "react-icons/fa";
 import { FaDeleteLeft } from "react-icons/fa6";
-import {doc,setDoc,
-  addDoc,collection,
-  getDoc,getDocs,
-  query, where,updateDoc,orderBy,onSnapshot} from "firebase/firestore"
+import {doc,onSnapshot} from "firebase/firestore"
 import { db } from '@/firebase/config';
+import {gatewayStore} from "../../recoil"
+import {useRecoilState} from 'recoil'
 
 type GATEWAY={
   id:string
   creator:string,
   createdAt:string,
   title:string,
-  cover:string
+  cover:string,
+  rpcUrl:string,
+  type:string,
+  status:string
+  ip:string
 }
 
 export default function Panel() {
@@ -28,6 +30,7 @@ export default function Panel() {
     const { gateway_id } = router.query ;
     const gatewayId=gateway_id as string
     const [active,setActive]=useState(`/gateways/${gateway_id}/dashboard`)
+    const [globalGateway,setGlobalGateway]=useRecoilState(gatewayStore) 
     const [gateway,setGateway]=useState<GATEWAY>()
     useEffect(()=>{
         
@@ -38,14 +41,30 @@ export default function Panel() {
                 creator:doc.data()?.creator,
                 createdAt:doc?.data()?.createdAt,
                 title:doc?.data()?.title,
-                cover:doc?.data()?.cover
+                cover:doc?.data()?.cover,
+                rpcUrl:doc?.data()?.rpcUrl,
+                type:doc?.data()?.type,
+                status:doc?.data()?.status,
+                ip:doc?.data()?.ip,
+              })
+
+              setGlobalGateway({
+                id:doc?.id,
+                creator:doc.data()?.creator,
+                createdAt:doc?.data()?.createdAt,
+                title:doc?.data()?.title,
+                cover:doc?.data()?.cover,
+                rpcUrl:doc?.data()?.rpcUrl,
+                type:doc?.data()?.type,
+                status:doc?.data()?.status,
+                ip:doc?.data()?.ip,
               })
           });
       }
   },[])
   
   return (
-    <div className='w-full h-full flex flex-col font-mono'>
+    <div className='w-full h-full flex flex-col font-mono bg-white'>
           <div className='flex flex-col space-y-2 border-b py-2'>
               {[  {
                     icon:<AiOutlineGateway />,
@@ -82,7 +101,7 @@ export default function Panel() {
               </div>
               {gateway_id?.length !=undefined&&
                   <div className='flex flex-col space-y-2 py-2'>
-                      <h5 className='text-lg font-semibold'>{gateway?.title} Gateway</h5>
+                      <h5 className='text-lg font-semibold px-4'>{gateway?.title} Gateway</h5>
                        {[  {
                            icon:<MdDashboardCustomize />,
                            label:"Dashboard",
@@ -101,7 +120,7 @@ export default function Panel() {
                          {
                           icon:< FaDeleteLeft style={{color:"red"}}/>,
                           label:"Terminate",
-                          link:`/gateways/${gateway_id}/settings`
+                          link:`/gateways/${gateway_id}/terminate`
                         },
                       
                        ].map((tab,i)=>{
