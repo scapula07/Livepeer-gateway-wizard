@@ -11,6 +11,12 @@ export default function GatewayPage() {
     if(slug==="dashboard"){
         return <Dashboard />
      }
+    if(slug==="settings"){
+      return <Settings/>
+    }
+    if(slug==="fund"){
+       return <Funding/>
+    }
    return (
      <div className='w-full h-full px-2' >
          <h5 className='text-lg font-semibold'>Coming Soon!!</h5>
