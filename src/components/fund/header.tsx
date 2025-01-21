@@ -13,10 +13,10 @@ export default function Header({walletState,connectWallet}:any) {
              </div>
 
              <div className='w-1/2 flex items-center space-x-6 justify-end'> 
-                    <Link href="/fund">
+                    <Link href="/">
                        <h5 className='font-light '>Home</h5>
                     </Link>
-                    <Link href="/fund">
+                    <Link href="/fund~">
                         <h5 className='font-semibold '>Fund A Gateway</h5>
                     </Link>
                     <h5 className='font-light '>Blog</h5>

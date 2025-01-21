@@ -14,7 +14,7 @@ export default function Header() {
 
              <div className='w-1/2 flex items-center space-x-6 justify-end'> 
                     <h5 className='font-semibold '>Home</h5>
-                    <Link href="/fund">
+                    <Link href="/fund~">
                         <h5 className='font-light '>Fund A Gateway</h5>
                     </Link>
                     <h5 className='font-light '>Blog</h5>
