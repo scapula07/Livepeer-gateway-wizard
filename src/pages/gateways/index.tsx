@@ -8,9 +8,9 @@ export default function Gateways() {
   return (
      <Layout>
          <div className='w-full h-full flex flex-col relative '>
-              <Recent />
+              {/* <Recent /> */}
               <Projects />
-              <WalletHistory />
+              {/* <WalletHistory /> */}
           </div>
      </Layout>
    )

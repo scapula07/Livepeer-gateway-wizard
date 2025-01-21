@@ -32,3 +32,9 @@ export interface GenerationOutput {
      rpcUrl:string
      password:string
   }
+
+
+  export interface FundParams {
+    reserve:string
+    deposit:string
+ }

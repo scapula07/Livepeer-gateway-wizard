@@ -5,7 +5,7 @@ import Panel from "../../components/launchPad/panel"
 import SelectStack from '@/components/launchPad/selectStack'
 import Configuration from '@/components/launchPad/configuration'
 import Loader from '@/components/launchPad/loader'
-import { _deploy } from '@/lib/api/script.api'
+import { _deploy } from '@/lib/api/gateway.api'
 import { DeploymentParams } from '@/lib/api/types'
 import { useRouter } from 'next/router';
 
@@ -37,7 +37,6 @@ export default function LaunchPad() {
             setNext(3)
          try{
              const response= await _deploy(data)
-             console.log(response,response.data,"Deploy data")
              response?.data&&setLoading(false)
          }catch(e){
              console.log(e)

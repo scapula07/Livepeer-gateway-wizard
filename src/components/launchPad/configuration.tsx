@@ -3,7 +3,6 @@ import { MdRadioButtonChecked,MdRadioButtonUnchecked } from "react-icons/md";
 import { DeploymentParams } from '@/lib/api/types';
 
 export default function Configuration({data,setData}:{data:DeploymentParams,setData:any}) {
-  console.log(data)
   return (
     <div className='w-full h-full space-y-4'>
          <h5 className='text-xl font-semibold'>Specify Details</h5>

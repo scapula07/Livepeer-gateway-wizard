@@ -79,7 +79,7 @@ export default function Panel() {
                   {
                     icon:< TbWaveSawTool/>,
                     label:"Home",
-                    link:"/home"
+                    link:"/"
                   },
                
                 ].map((tab,i)=>{

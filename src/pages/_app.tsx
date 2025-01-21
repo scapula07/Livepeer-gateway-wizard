@@ -6,7 +6,7 @@ import "nprogress/nprogress.css";
 import Router from "next/router";
 import AuthGuard from "../components/Authguard"
 import { Theme } from "@radix-ui/themes";
-
+import 'react-toastify/dist/ReactToastify.css';
 
 NProgress.configure({ showSpinner: false});
 

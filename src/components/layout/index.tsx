@@ -1,7 +1,7 @@
 import React,{ReactNode} from 'react'
 import Navbar from "../../components/navbar"
 import Panel from "./panel"
-
+import { ToastContainer, toast } from 'react-toastify';
 type Props={
     children:ReactNode
 }
@@ -19,6 +19,7 @@ export default function Layout({children}:Props) {
                      </div>
                 </div>
           </div>
+          <ToastContainer />
     </div>
   )
 }
