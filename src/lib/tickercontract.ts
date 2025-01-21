@@ -3,6 +3,7 @@ import { ethers, BrowserProvider,ErrorCode ,ErrorDescription, EthersError} from 
 import proxyABI from "../abi/tickerBrokerProxy.json";
 import targetABI from "../abi/tickerBrokerTarget.json";
 import { FundParams } from "./api/types";
+import { toast } from "react-toastify";
 // Proxy contract address
 const proxyAddress = '0xa8bB618B1520E284046F3dFc448851A1Ff26e41B';
 
@@ -47,8 +48,9 @@ export async function fundDepositAndReserve(totalInEther:string,deposit:string,r
         const tx = await implementationContract.fundDepositAndReserve(ethers.parseEther(deposit),ethers.parseEther(reserve),{ value: ethers.parseEther(totalInEther)});
         await tx.wait();
         console.log('Deposit funded!',tx);
-      }catch(e){
-        console.log(e)
+      }catch(e:any){
+        console.log(e.reason)
+        throw new Error(e.reason)
       }
 
 }
@@ -59,8 +61,9 @@ export async function fundDepositAndReserveFor(totalInEther:string,deposit:strin
       const tx = await implementationContract.fundDepositAndReserveFor(address,ethers.parseEther(deposit),ethers.parseEther(reserve),{ value: ethers.parseEther(totalInEther)});
       await tx.wait();
       console.log('Deposit funded!',tx);
-    }catch(e){
-      console.log(e)
+    }catch(e:any){
+      console.log(e.reason)
+      throw new Error(e.reason)
     }
 
 }
@@ -71,22 +74,20 @@ export async function withDraw() {
       const tx = await implementationContract.withdraw();
       await tx.wait();
       console.log('success',tx);
-    }catch(e){
-      console.log(e)
+    }catch(e:any){
+      console.log(e.reason)
+      throw new Error(e.reason)
     }
 
 }
 
 
 export async function getSenderInfo(account:string):Promise<FundParams> {
-    const implementationContract = await getTickerTargetContract();
-    const info= await implementationContract.getSenderInfo(account)
-    console.log(info)
-    return {
-        deposit:ethers.formatEther(info[0][0]),
-        reserve:ethers.formatEther(info[1][0]),
-       }
    
+      const implementationContract = await getTickerTargetContract();
+      const info= await implementationContract.getSenderInfo(account)
+      return {
+          deposit:ethers.formatEther(info[0][0]),
+          reserve:ethers.formatEther(info[1][0]),
+        }
   }
-
-  console.log(ethers.ErrorDescription)

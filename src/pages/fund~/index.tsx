@@ -9,7 +9,8 @@ import Withdraw from '@/components/fund/withdraw';
 import { FaRegSquarePlus } from "react-icons/fa6";
 import { FaRegMinusSquare } from "react-icons/fa";
 import { ClipLoader } from 'react-spinners';
-
+import { toast } from 'react-toastify';
+import Error from 'next/error';
 export default function Fund() {
      const { connectWallet,walletState } = useWeb3Provider();
      const [fund,setFund]=useState <FundParams>() 
@@ -26,8 +27,10 @@ export default function Fund() {
        
           const response =await fundDepositAndReserve(total,deposit,reserve)
           setLoading (false)
-         }catch(e){
+          toast("Successful transaction")
+         }catch(e:any){
           setLoading (false)
+          toast.error(e.message)
           }
       }
     
@@ -38,8 +41,10 @@ export default function Fund() {
       try{
          const response =await fundDepositAndReserveFor(total,deposit,reserve,address)
          setLoading (false)
-        }catch(e){ 
+         toast("Successful transaction")
+        }catch(e:any){ 
           setLoading (false)
+          toast.error(e.message)
         }
      }
 
@@ -48,8 +53,9 @@ export default function Fund() {
        try{
           const response=await getSenderInfo(walletState.address?walletState.address:'')
           setFund(response)
-        }catch(e){
+        }catch(e:any){
            console.log(e)
+           toast.error(e.message)
          }
     }
 

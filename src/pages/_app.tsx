@@ -7,6 +7,7 @@ import Router from "next/router";
 import AuthGuard from "../components/Authguard"
 import { Theme } from "@radix-ui/themes";
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 NProgress.configure({ showSpinner: false});
 
@@ -19,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
              <AuthGuard>
                 <Theme>
                    <Component {...pageProps} />
+                   <ToastContainer />
                 </Theme>
              </AuthGuard>
           </RecoilRoot>;

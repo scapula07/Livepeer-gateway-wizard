@@ -1,6 +1,7 @@
 import React ,{useState} from 'react'
 import { withDraw } from '@/lib/tickercontract'
 import { ClipLoader } from 'react-spinners'
+import { toast } from 'react-toastify'
 
 export default function Withdraw({setTrigger}:any) {
      const [loading,setLoading]=useState(false)
@@ -10,8 +11,11 @@ export default function Withdraw({setTrigger}:any) {
         try{
            const response =await withDraw()
            setLoading(false)
-          }catch(e){ 
+           toast("Successful transaction")
+          }catch(e:any){ 
             console.log(e)
+            setLoading(false)
+            toast.error(e.message)
           }
        }
   return (
