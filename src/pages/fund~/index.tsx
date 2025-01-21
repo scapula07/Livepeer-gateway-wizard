@@ -8,30 +8,39 @@ import Modal from '@/components/modal';
 import Withdraw from '@/components/fund/withdraw';
 import { FaRegSquarePlus } from "react-icons/fa6";
 import { FaRegMinusSquare } from "react-icons/fa";
+import { ClipLoader } from 'react-spinners';
 
 export default function Fund() {
      const { connectWallet,walletState } = useWeb3Provider();
      const [fund,setFund]=useState <FundParams>() 
      const [trigger,setTrigger]=useState(false)
+     const [loading,setLoading]=useState(false)
 
      useEffect(()=>{
         walletState?.address&&fetchSenderInfo()
      },[walletState?.address])
 
      const fundGateway=async(total:string,deposit:string,reserve:string)=>{
+          setLoading(true)
        try{
        
           const response =await fundDepositAndReserve(total,deposit,reserve)
-         }catch(e){ }
+          setLoading (false)
+         }catch(e){
+          setLoading (false)
+          }
       }
     
 
      const fundGatewayFor=async(total:string,deposit:string,reserve:string,address:string)=>{
-      console.log(deposit,reserve,total,address)
+          setLoading(true)
 
       try{
          const response =await fundDepositAndReserveFor(total,deposit,reserve,address)
-        }catch(e){ }
+         setLoading (false)
+        }catch(e){ 
+          setLoading (false)
+        }
      }
 
 
@@ -72,7 +81,7 @@ export default function Fund() {
                     }
                    ].map((item)=>{
                       return(                      
-                          <FundGateway item={item}/>
+                          <FundGateway item={item} loading={loading}/>
                       )
                    })
                   }
@@ -85,7 +94,7 @@ export default function Fund() {
 }
 
 
-const FundGateway=({item}:any)=>{
+const FundGateway=({item,loading}:{item:any,loading:boolean})=>{
     const [open,setOpen]=useState(false)
     const [ethFund,setFund]=useState({deposit:"",reserve:"",total:""})
     const [gatewayAddress,setAddress]=useState("")
@@ -130,7 +139,13 @@ const FundGateway=({item}:any)=>{
                             />
                           )}
            
-                <button className='border-[#58815794] border text-green-800 py-2 px-4 font-bold w-60 ' onClick={()=>item?.fund(ethFund?.total,ethFund?.deposit,ethFund.reserve,gatewayAddress)}>Continue</button>
+                <button className='border-[#58815794] border text-green-800 py-2 px-4 font-bold w-60 ' onClick={()=>item?.fund(ethFund?.total,ethFund?.deposit,ethFund.reserve,gatewayAddress)}>
+                  {loading?
+                    <ClipLoader size={14}/>
+                    :
+                    "Continue"
+                  }
+                  </button>
             </div>
              ) }
 

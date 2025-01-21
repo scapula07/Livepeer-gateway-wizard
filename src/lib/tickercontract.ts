@@ -1,5 +1,5 @@
 declare const window: any;
-import { ethers, BrowserProvider } from "ethers";
+import { ethers, BrowserProvider,ErrorCode ,ErrorDescription, EthersError} from "ethers";
 import proxyABI from "../abi/tickerBrokerProxy.json";
 import targetABI from "../abi/tickerBrokerTarget.json";
 import { FundParams } from "./api/types";
@@ -88,3 +88,5 @@ export async function getSenderInfo(account:string):Promise<FundParams> {
        }
    
   }
+
+  console.log(ethers.ErrorDescription)

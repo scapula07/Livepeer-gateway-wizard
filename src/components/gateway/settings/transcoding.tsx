@@ -241,26 +241,11 @@ const InitProfile=({setTrigger}:any)=>{
                     <h5>Video Quality</h5>
                     <Select                           
                         placeholder="Select a Quality"
-                        options={[{quality:'144p'},{quality:"240p"},{quality:"360p"},{quality:"1440p"}].map((item)=>({label:item.quality}))}
+                        options={[]}
                         value={""}
                         menuPlacement="auto"
                         menuPosition="fixed"
-                        className='outline-orange-500'
-                        noOptionsMessage={(opt) => {
-                          if (opt.inputValue === "") {
-                            return "Select a Quality";
-                          } else {
-                            return "no search results for " + opt.inputValue;
-                          }
-                        }}
-                        components={{
-                          IndicatorSeparator: () => null,
-                        }}
-                        onChange={(opt) => {
-                          // selectState(opt);
-                          // setDelivery({...delivery,state:opt?.value})
-                        }}
-                      />
+                    />
         
                 </div>  
                 <div className='flex items-center py-2'>
