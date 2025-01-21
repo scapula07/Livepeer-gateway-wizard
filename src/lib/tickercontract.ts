@@ -84,7 +84,7 @@ export async function getSenderInfo(account:string):Promise<FundParams> {
     console.log(info)
     return {
         deposit:ethers.formatEther(info[0][0]),
-        reserve:ethers.formatEther(info[0][1]),
+        reserve:ethers.formatEther(info[1][0]),
        }
    
   }
