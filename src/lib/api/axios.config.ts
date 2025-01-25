@@ -2,7 +2,7 @@ import axios from 'axios'
 // import { getAccessToken } from '../utils'
 
 
-const baseUrl = 'http://localhost:3003/api/v1'
+const baseUrl = 'http://54.198.155.155:3003/api/v1'
 
 const headers = {
   'Access-Control-Allow-Origin': true,

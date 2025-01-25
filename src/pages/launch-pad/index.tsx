@@ -37,6 +37,7 @@ export default function LaunchPad() {
             setNext(3)
          try{
              const response= await _deploy(data)
+             console.log(response.data,"redis")
              response?.data&&setLoading(false)
          }catch(e){
              console.log(e)
