@@ -31,6 +31,7 @@ export const authApi= {
        login:async function (email:string,password:string) {
         try{
            const response = await signInWithEmailAndPassword(auth,email,password)
+           console.log(response,"response")
            const ref =doc(db,"users",response?.user?.uid)
            const docSnap = await getDoc(ref);
            if (docSnap.exists()) {

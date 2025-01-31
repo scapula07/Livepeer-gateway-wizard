@@ -6,7 +6,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { TbWorld } from "react-icons/tb";
 import { LiaDownloadSolid } from "react-icons/lia";
 import { GoDotFill } from "react-icons/go";
-
+import { useRouter } from "next/router";
 
 type GATEWAY={
     id:string
@@ -23,7 +23,9 @@ type GATEWAY={
 export default function Dashboard() {
      const gateway=useRecoilValue(gatewayStore) as GATEWAY
      const user=useRecoilValue(userStore)
-     console.log(gateway,"gg")
+
+
+
    return (
     <div className='w-full h-full flex flex-col space-y-10'>
           <h5 className='font-semibold text-3xl'>Hello bartholomew Onogwu!👋</h5>
@@ -86,6 +88,7 @@ export default function Dashboard() {
 
 
 const GatewayDetails=({gateway}:{gateway:GATEWAY})=>{
+      const router = useRouter();
      return(
         <div className='w-[45%] flex flex-col bg-white  py-6 px-4 rounded-lg space-y-4'>
               <div className='flex items-center justify-between'>
@@ -113,13 +116,13 @@ const GatewayDetails=({gateway}:{gateway:GATEWAY})=>{
 
               </div>
               <div className='w-full justify-center flex'>
-                   <button className='border border-gray-200 py-3 px-8 font-semibold rounded-full space-x-3 w-[80%] text-xs flex items-center justify-center'>
-                        <LiaDownloadSolid className='text-xl'/>
-                        <span>  Download Keystore</span>
-                   </button>
-                 
+                   <button className='border border-gray-200 py-3 px-8 font-semibold rounded-full space-x-3 w-[80%] text-xs flex items-center justify-center'
+                     onClick={()=>router.push(`/cmd~?id=${gateway.id}&name=${gateway.title}&ip=${gateway.ip}&url=${gateway.rpcUrl}`) }
+                    >
+                        {/* <LiaDownloadSolid className='text-xl'/> */}
+                        <span> Generate ETH Account</span>
+                   </button>         
               </div>
-
         </div>
      )
 }
