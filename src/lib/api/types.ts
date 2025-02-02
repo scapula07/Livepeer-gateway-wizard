@@ -31,6 +31,7 @@ export interface GenerationOutput {
      gatewayName:string
      rpcUrl:string
      password:string
+     transcoding_profile:string
   }
 
 

@@ -3,6 +3,7 @@ import { MdRadioButtonChecked,MdRadioButtonUnchecked } from "react-icons/md";
 import { DeploymentParams } from '@/lib/api/types';
 
 export default function Configuration({data,setData}:{data:DeploymentParams,setData:any}) {
+  const [profile,setProfile]=useState("")
   return (
     <div className='w-full h-full space-y-4'>
          <h5 className='text-xl font-semibold'>Specify Details</h5>
@@ -46,6 +47,54 @@ export default function Configuration({data,setData}:{data:DeploymentParams,setD
                     />
                 </div>
                 </div>
+
+
+                <div className='w-full py-4 flex flex-col px-4 space-y-4'>
+                            <div className='w-full'>
+                                <h5 className=' font-semibold font-sans text-[0.96rem] text-black'> Choose Transcoding Profile</h5>
+                                {/* <h5 className='text-xs'>Pick the geographic region for your deployment to optimize streaming performance and comply with local regulations</h5> */}
+                            </div>
+                            <div className='w-full grid grid-cols-2 gap-2'>
+                                {[
+                                    {
+                                        label:"480p0",
+                                        desc:"h264constrainedhigh"
+                                    },
+                                    {
+                                        label:"720p0",
+                                        desc:"h264constrainedhigh"
+                                    },
+                                    {
+                                        label:"1080p0",
+                                        desc:"h264constrainedhigh"
+                                    }
+
+                                ].map((tab)=>{
+                                    return(
+                                        <div className=' flex border px-4 py-6 space-x-2'>
+                                        { profile===tab?.label?
+                                            <MdRadioButtonChecked
+                                             className='text-green-500'
+                                             onClick={()=>{setProfile(tab?.label); setData({...data,transcoding_profile:tab?.label})}} 
+                                            />
+                                            :
+                                            <MdRadioButtonUnchecked
+                                             className='text-green-500'
+                                            onClick={()=>{setProfile(tab?.label); setData({...data,transcoding_profile:tab?.label})}} 
+                                            />
+                                        }
+                                    
+                                        <div className='flex flex-col'>
+                                            <h5 className='text-sm font-semibold'>{tab?.label}</h5>
+                                            <h5 className='text-[0.85rem] text-slate-600'>{tab?.desc}</h5>
+                                        </div>
+                            
+                                </div>
+                                    )
+                                })
+                                }
+                            </div>
+                        </div>
           </div>
     </div>
   )

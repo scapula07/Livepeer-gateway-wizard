@@ -28,7 +28,8 @@ export default function LaunchPad() {
                                     region:"",
                                     gatewayName:"",
                                     rpcUrl:"",
-                                    password:""
+                                    password:"",
+                                    transcoding_profile:""
                                  })
 
      const launch=async()=>{
