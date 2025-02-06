@@ -4,6 +4,7 @@ import { MdOutlineNotificationsNone } from "react-icons/md";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { useRecoilValue } from 'recoil';
 import { userStore } from '@/recoil';
+import Link from 'next/link';
 export default function Navbar() {
     const user=useRecoilValue(userStore) as {email:'',id:''}
   return (
@@ -17,12 +18,12 @@ export default function Navbar() {
 
          </div>
          <div className='w-2/5 flex items-center justify-end space-x-4'>
-             <MdOutlineNotificationsNone 
+             {/* <MdOutlineNotificationsNone 
                className='text-2xl text-slate-700'
              />
              <AiOutlineQuestionCircle 
                className='text-2xl text-slate-700'
-             />
+             /> */}
              <h5 className='bg-[#58815794] rounded-full font-bold text-xl h-8 w-8 flex items-center justify-center'>{user?.email?.slice(0,1)?.toUpperCase()}</h5>    
          </div>
         

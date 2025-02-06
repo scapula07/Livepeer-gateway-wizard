@@ -11,9 +11,9 @@ export default function GatewayPage() {
     if(slug==="dashboard"){
         return <Dashboard />
      }
-    if(slug==="settings"){
-      return <Settings/>
-    }
+    // if(slug==="settings"){
+    //   return <Settings/>
+    // }
     if(slug==="fund"){
        return <Funding/>
     }

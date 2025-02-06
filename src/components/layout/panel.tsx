@@ -21,7 +21,8 @@ type GATEWAY={
   rpcUrl:string,
   type:string,
   status:string
-  ip:string
+  ip:string,
+  dashboardUrl:string
 }
 
 export default function Panel() {
@@ -46,6 +47,7 @@ export default function Panel() {
                 type:doc?.data()?.type,
                 status:doc?.data()?.status,
                 ip:doc?.data()?.ip,
+                dashboardUrl:doc?.data()?.dashboardUrl
               })
 
               setGlobalGateway({
@@ -58,10 +60,11 @@ export default function Panel() {
                 type:doc?.data()?.type,
                 status:doc?.data()?.status,
                 ip:doc?.data()?.ip,
+                dashboardUrl:doc?.data()?.dashboardUrl
               })
           });
       }
-  },[])
+  },[gateway_id])
   
   return (
     <div className='w-full h-full flex flex-col font-mono bg-white'>
@@ -112,11 +115,11 @@ export default function Panel() {
                            label:"Fund Gateway",
                            link:`/gateways/${gateway_id}/fund`
                          },
-                         {
-                           icon:< CiSettings/>,
-                           label:"Settings & Configuration",
-                           link:`/gateways/${gateway_id}/settings`
-                         },
+                        //  {
+                        //    icon:< CiSettings/>,
+                        //    label:"Settings & Configuration",
+                        //    link:`/gateways/${gateway_id}/settings`
+                        //  },
                          {
                           icon:< FaDeleteLeft style={{color:"red"}}/>,
                           label:"Terminate",

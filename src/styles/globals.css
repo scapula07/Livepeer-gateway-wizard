@@ -124,7 +124,10 @@ body::-webkit-scrollbar {
 
 }
 
-
+.no-scrollbar::-webkit-scrollbar,
+body::-webkit-scrollbar{
+   display:none !important;
+}
 
 
 

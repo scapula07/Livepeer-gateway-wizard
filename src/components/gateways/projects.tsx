@@ -15,7 +15,8 @@ type GATEWAY={
   creator:string,
   createdAt:string,
   title:string,
-  cover:string
+  cover:string,
+  
 }
 
 export default function Projects() {
