@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { _deleteTerminal } from '@/lib/api/gateway.api';
 import { gatewayStore,userStore } from '@/recoil'
 import { useRecoilValue } from 'recoil'
+import { useRouter } from 'next/router';
+import {toast} from "react-toastify"
 
 type GATEWAY={
   id:string
@@ -23,13 +25,17 @@ export default function Terminate() {
        const [passphrase,setPassphrase]=useState('')
        const [isLoading,setLoading]=useState(false)
        const gateway=useRecoilValue(gatewayStore) as GATEWAY
+      
 
+       const router = useRouter();
 
        const deleteGateway=async()=>{
               setLoading(true)
              try{
               const response= await _deleteTerminal({...gateway,passphrase})
               response?.data&&setLoading(false)
+              router.push('/gateways')
+              toast.success("Gateway successfully deleted!")
 
              }catch(e){
               setLoading(false)

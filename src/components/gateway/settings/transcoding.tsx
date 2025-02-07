@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FiEdit3 } from "react-icons/fi";
 import { FaToggleOff,FaToggleOn } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import { _updateTranscodingProfile } from '@/lib/api/gateway.api';
 import { ClipLoader } from 'react-spinners';
 import Modal from '@/components/modal';
 import Select from 'react-select';
@@ -64,8 +63,8 @@ export default function TranscodingProfile() {
   const updateProfile=async()=>{
       setLoader(true)
      try{
-      const response= await _updateTranscodingProfile(transcodingProfiles)
-      response?.data&&setLoader(false)
+
+   
       }catch(e){
         setLoader(false)
 
