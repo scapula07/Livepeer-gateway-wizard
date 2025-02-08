@@ -13,11 +13,13 @@ function XTerminal() {
   let userInput = ""; // Stores the user's current input line
 
   const router = useRouter();
-  const { id,name,ip,url } = router.query;
+  const { id,name,ip,url,cli } = router.query;
   const gateway_name=name as string
   const gateway_ip=ip as string
   const gateway_rpc_url=url as string
-  console.log(gateway_ip,gateway_name)
+  const gateway_id =id as string
+  const isCli = cli as boolean | string
+  console.log(gateway_ip,gateway_name,typeof(isCli))
 
   useEffect(() => {
     if (!terminalRef.current) return;
@@ -30,7 +32,7 @@ function XTerminal() {
     term.current.open(terminalRef.current);
 
     // Initialize WebSocket
-    ws.current = new WebSocket(`ws://54.160.199.231:3004?gateway_name=${encodeURIComponent(gateway_name)}&gateway_ip=${encodeURIComponent(gateway_ip)}&gateway_rpc=${encodeURIComponent(gateway_rpc_url)}`);
+    ws.current = new WebSocket(`ws://54.160.199.231:3004?gateway_name=${encodeURIComponent(gateway_name)}&gateway_ip=${encodeURIComponent(gateway_ip)}&gateway_rpc=${encodeURIComponent(gateway_rpc_url)}&gateway_id=${encodeURIComponent(gateway_id)}&cli=${encodeURIComponent(isCli)}`);
 
     ws.current.onmessage = (event) => {
       const data = event.data;

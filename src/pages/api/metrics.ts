@@ -8,8 +8,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>,
 ) {
+    console.log(req.body)
+    const url=req.body.url
       try{
-        const response = await fetch("http://3.83.25.133:3000/api/dashboards/uid/bebsywszxxtdsc", {
+        const response = await fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

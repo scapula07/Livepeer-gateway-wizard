@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import { gatewayStore,userStore } from '@/recoil'
 import { useRecoilValue } from 'recoil'
 import { BeatLoader, ClipLoader } from 'react-spinners'
@@ -8,7 +8,10 @@ import { LiaDownloadSolid } from "react-icons/lia";
 import { GoDotFill } from "react-icons/go";
 import { useRouter } from "next/router";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,AreaChart, Area } from "recharts";
-
+import Modal from "../modal"
+import { FaEthereum } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
+import { MdOutlineContentCopy ,MdKeyboardArrowDown,MdKeyboardArrowRight} from "react-icons/md";
 
 
 type GATEWAY={
@@ -22,6 +25,7 @@ type GATEWAY={
     status:string
     ip:string
     dashboardUrl:string
+    ethAddress:string
   }
 
 export default function Dashboard() {
@@ -29,6 +33,27 @@ export default function Dashboard() {
      const user=useRecoilValue(userStore) as {email:""}
      const [cpuData, setCpuData] = useState([]);
      const [memoryData, setMemoryData] = useState([]);
+     const [trigger, setTrigger] = useState(false);
+     const [isOpen, setIsOpen] = useState(false);
+
+     const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+
+  
+     useEffect(() => {
+       function handleClickOutside(event:MouseEvent) {
+        if (dropdownRef.current && event.target instanceof Node && !dropdownRef.current.contains(event.target)) {
+          setIsOpen(false);
+        }
+  
+       }
+       document.addEventListener("mousedown", handleClickOutside);
+       return () => {
+         document.removeEventListener("mousedown", handleClickOutside);
+       };
+     }, []);
+   
+
      const router = useRouter();
 
      useEffect(() => {
@@ -38,12 +63,21 @@ export default function Dashboard() {
   }, [gateway]);
 
      const fetchMetrics = async () => {
+
+            const match = gateway?.dashboardUrl?.match(/\/d\/([^/]+)/);
+            const id = match ? match[1] : null;
+            const url=`http://${gateway.ip}:3000/api/dashboards/uid/${id}`
+      
       try {
           const response = await fetch("http://localhost:3000/api/metrics", {
-              method: "GET",
+              method: "POST",
               headers: {
                   "Content-Type": "application/json",
               },
+              body: JSON.stringify({
+                url,
+              }),
+            
           });
           const data = await response.json();
           console.log(data,"data")
@@ -88,10 +122,11 @@ export default function Dashboard() {
       }
   };
 
-  console.log(cpuData,memoryData)
+  console.log(gateway.createdAt)
   
 
    return (
+    <>
     <div className='w-full h-full flex flex-col space-y-10'>
            <div className='flex w-full justify-between'>
                <h5 className='font-semibold text-xl'>Hello {user?.email}! 👋</h5>
@@ -110,10 +145,16 @@ export default function Dashboard() {
                                 <p className='text-xs text-orange-700 font-semibold'>Running</p>
                               </div>   
                           }    
-                        <button className='border border-gray-200  bg-[#58815794] py-3 px-8 font-semibold rounded-full space-x-3 w-[80%] text-xs flex items-center justify-center'
-                          onClick={()=>router.push(`/cmd~?id=${gateway.id}&name=${gateway.title}&ip=${gateway.ip}&url=${gateway.rpcUrl}`) }
+                        <button className='border border-gray-200  bg-[#58815794] py-3 px-8 font-semibold rounded-full space-x-3 w-[80%] text-xs flex items-center justify-center space-x-2'
+                          onClick={()=>setTrigger(true)}
                           >
-                              <span> Generate ETH Account</span>
+                              {gateway.ethAddress?.length>0?
+                                <span>{gateway.ethAddress.slice(0,15)+"..."+gateway.ethAddress.slice(-4)}</span>
+                                  :
+                                <span>Account</span>
+                              }
+                             
+                              <MdKeyboardArrowRight />
                         </button>         
                </div>
            </div>
@@ -153,19 +194,18 @@ export default function Dashboard() {
                </div>
               <div className='w-[100%] py-6 '> 
 
-                <div className=" w-[100%] flex flex-col space-y-6 overflow-x-scroll no-scrollbar">
+                <div className=" w-[100%] flex flex-col space-y-6 overflow-x-scroll no-scrollbar" ref={dropdownRef}>
                    
-                       <table className="table-auto w-[180%] border-separate border-spacing-0.5">
+                       <table className="table-auto w-[180%] border-separate border-spacing-0.5" >
                            <thead className='py-2 bg-[#58815794]' >
                                   <tr >
                                       {
                                           [ 
                                             "IP Address",              
                                             "Type",
-                                            "Status",
                                             "Grafana Url",
-                                            "ETH",
-                                            "Created" 
+                                            "ETH Address",
+                                            "Created At" 
                                             ].map((text)=>{
                                               return(
                                                   <th className='text-sm text-left text-gray-800 font-semibold px-3'>{text}</th>
@@ -178,10 +218,29 @@ export default function Dashboard() {
                                  <tr className='py-2 text-sm font-light '>
                                       <td className='bg-white  px-4  font-semibold' >{gateway?.ip}</td>
                                       <td className='bg-white  px-4  font-semibold' >{gateway?.type}</td>
-                                      <td className='bg-white  px-4 font-semibold' >{"Active"}</td>
-                                      <td className='bg-white  px-4  font-semibold' >{gateway?.dashboardUrl}</td>
-                                      <td className='bg-white  px-4  font-semibold' >{"0xz234566789...0088"}</td>
-                                      <td className='bg-white  px-4  font-semibold' >{"20th Jan"}</td>
+                                      {/* <td className='bg-white  px-4 font-semibold' >{"Active"}</td> */}
+                                      <td className='bg-white  px-4  font-semibold flex items-center' >
+                                        <a href={gateway.dashboardUrl} className="hover:underline space-x-5">
+                                             {gateway?.dashboardUrl} 
+                                        </a>
+                                        <MdKeyboardArrowDown className='text-3xl' onClick={() => setIsOpen(!isOpen)}/>
+                                        {isOpen && (
+
+                                        <div className="absolute right-0 mt-2 w-64 bg-white border rounded-lg shadow-lg p-4">
+                                            <p className="text-gray-700 text-sm">
+                                              <strong>
+                                                Username:</strong> admin
+                                            </p>
+                                            <p className="text-gray-700 text-sm mt-2">
+                                              <strong>Password:</strong> admin
+                                            </p>
+                                         </div>
+                                        )}
+
+                                      
+                                      </td>
+                                      <td className='bg-white  px-4  font-semibold' >{gateway.ethAddress?.slice(0,10)+".."+gateway.ethAddress?.slice(-2)}</td>
+                                      <td className='bg-white  px-4  font-semibold' >{gateway?.createdAt}</td>
                                  </tr>
                    
                             </tbody>
@@ -194,5 +253,50 @@ export default function Dashboard() {
               </div>
           </div>
     </div>
+    <Modal trigger={trigger} cname="w-full justify-center flex items-center">
+        <GatewayAccount gateway={gateway} setTrigger={setTrigger}/>
+    </Modal>
+    </>
   )
+}
+
+
+
+const GatewayAccount=({gateway,setTrigger}:{gateway:GATEWAY,setTrigger:any})=>{
+   const copyToClipboard = () => {
+    navigator.clipboard.writeText(gateway.ethAddress)
+      .then(() => alert("URL copied to clipboard!"))
+      .catch(err => console.error("Failed to copy:", err));
+  };
+  const router = useRouter();
+
+    return(
+      <div className='bg-white w-1/3  py-4 rounded-lg flex flex-col items-center justify-center'>
+               <div className='w-full flex justify-end px-4'>
+                     <IoMdClose className='text-3xl' onClick={()=>setTrigger(false)}/>  
+               </div>
+              <img src={"/img.png"} className="w-44 h-44"/>
+              <div className='flex flex-col items-center space-y-6 w-full'>
+                     <div className='flex items-center justify-center space-x-4'>
+                         <FaEthereum className='text-xl'/>
+                         <h5 className='w-full flex items-center space-x-5'>
+                             <span>{gateway.ethAddress?.slice(0,10) + ".."+ gateway.ethAddress?.slice(-2)}</span>
+                             <MdOutlineContentCopy onClick={copyToClipboard} />
+                         </h5>
+
+                    </div>
+                    <div className='flex flex-col space-y-3 items-center'>
+                       <h5 className='text-sm hover:underline font-mono' onClick={()=>router.push(`/cmd~?id=${gateway.id}&name=${gateway.title}&ip=${gateway.ip}&url=${gateway.rpcUrl}&cli=${false}`) }>
+                           Generate ETH Account
+                        </h5>
+                       <h5 className='text-sm hover:underline font-mono' onClick={()=>router.push(`/cmd~?id=${gateway.id}&name=${gateway.title}&ip=${gateway.ip}&url=${gateway.rpcUrl}&cli=${true}`) }>
+                          Livepeer CLI
+                      </h5>
+
+                    </div>
+
+              </div>
+
+      </div>
+    )
 }

@@ -10,15 +10,34 @@ import { FaRegMinusSquare } from "react-icons/fa";
 import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import Error from 'next/error';
+import {useRecoilValue} from "recoil"
+import {gatewayStore} from "../../recoil"
+
+type GATEWAY={
+  id:string
+  creator:string,
+  createdAt:string,
+  title:string,
+  cover:string,
+  rpcUrl:string,
+  type:string,
+  status:string
+  ip:string
+  dashboardUrl:string
+  ethAddress:string
+}
+
+
 export default function Fund() {
      const { connectWallet,walletState } = useWeb3Provider();
+     const gateway=useRecoilValue(gatewayStore) as GATEWAY
      const [fund,setFund]=useState <FundParams>() 
      const [trigger,setTrigger]=useState(false)
      const [loading,setLoading]=useState(false)
 
      useEffect(()=>{
-        walletState?.address&&fetchSenderInfo()
-     },[walletState?.address])
+        gateway?.ethAddress?.length>0&&fetchSenderInfo()
+     },[gateway?.ethAddress])
 
      const fundGateway=async(total:string,deposit:string,reserve:string)=>{
           setLoading(true)
@@ -50,7 +69,7 @@ export default function Fund() {
 
     const fetchSenderInfo=async()=>{
        try{
-          const response=await getSenderInfo(walletState.address?walletState.address:'')
+          const response=await getSenderInfo(gateway.ethAddress?gateway?.ethAddress:'')
           setFund(response)
         }catch(e:any){
            console.log(e)

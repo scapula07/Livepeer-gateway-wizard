@@ -22,7 +22,8 @@ type GATEWAY={
   type:string,
   status:string
   ip:string,
-  dashboardUrl:string
+  dashboardUrl:string,
+  ethAddress:string
 }
 
 export default function Panel() {
@@ -36,31 +37,37 @@ export default function Panel() {
     useEffect(()=>{
         
       if(gatewayId?.length >0){
-          const unsub = onSnapshot(doc(db,"gateways",gatewayId), (doc) => {   
+          const unsub = onSnapshot(doc(db,"gateways",gatewayId), (doc) => { 
+            const date = new Date(doc?.data()?.createdAt?.seconds * 1000);
+
+            // Format as a readable string
+            const formattedDate = date.toLocaleString();   
               setGateway({
                 id:doc?.id,
                 creator:doc.data()?.creator,
-                createdAt:doc?.data()?.createdAt,
+                createdAt:formattedDate,
                 title:doc?.data()?.title,
                 cover:doc?.data()?.cover,
                 rpcUrl:doc?.data()?.rpcUrl,
                 type:doc?.data()?.type,
                 status:doc?.data()?.status,
                 ip:doc?.data()?.ip,
-                dashboardUrl:doc?.data()?.dashboardUrl
+                dashboardUrl:doc?.data()?.dashboardUrl,
+                ethAddress:doc?.data()?.ethAddress
               })
 
               setGlobalGateway({
                 id:doc?.id,
                 creator:doc.data()?.creator,
-                createdAt:doc?.data()?.createdAt,
+                createdAt:formattedDate,
                 title:doc?.data()?.title,
                 cover:doc?.data()?.cover,
                 rpcUrl:doc?.data()?.rpcUrl,
                 type:doc?.data()?.type,
                 status:doc?.data()?.status,
                 ip:doc?.data()?.ip,
-                dashboardUrl:doc?.data()?.dashboardUrl
+                dashboardUrl:doc?.data()?.dashboardUrl,
+                ethAddress:doc?.data()?.ethAddress
               })
           });
       }
