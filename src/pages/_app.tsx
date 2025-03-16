@@ -4,24 +4,29 @@ import { RecoilRoot } from "recoil";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import Router from "next/router";
-import AuthGuard from "../components/Authguard"
+import AuthGuard from "../components/Authguard";
 import { Theme } from "@radix-ui/themes";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import ErrorBoundary from "@/components/error-boundary";
 
-NProgress.configure({ showSpinner: false});
+NProgress.configure({ showSpinner: false });
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 export default function App({ Component, pageProps }: AppProps) {
-  return  <RecoilRoot>
-             <AuthGuard>
-                <Theme>
-                   <Component {...pageProps} />
-                   <ToastContainer />
-                </Theme>
-             </AuthGuard>
-          </RecoilRoot>;
+  return (
+    <RecoilRoot>
+      <ErrorBoundary>
+        <AuthGuard>
+          <Theme>
+            <Component {...pageProps} />
+            <ToastContainer />
+          </Theme>
+        </AuthGuard>
+      </ErrorBoundary>
+    </RecoilRoot>
+  );
 }
