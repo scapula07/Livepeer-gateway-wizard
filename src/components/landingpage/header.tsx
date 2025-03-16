@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { IoBalloon } from "react-icons/io5";
 import Link from "next/link";
@@ -13,7 +15,7 @@ export default function Header() {
   };
 
   return (
-    <div className="w-full fixed px-10 py-4  z-20  ">
+    <div className="w-full fixed px-10 py-4 z-20">
       <div className="flex items-center w-full">
         <div className="w-1/2">
           <div className="bg-[#58815794] w-20 h-20 flex items-center justify-center rounded-full">
