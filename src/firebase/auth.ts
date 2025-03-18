@@ -38,7 +38,6 @@ export const authApi = {
   ): Promise<AuthResponse | undefined> {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response, "response");
       const ref = doc(db, "users", response?.user?.uid);
       const docSnap = await getDoc(ref);
       if (docSnap.exists()) {
