@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 import "@xterm/xterm/css/xterm.css";
 import { useRouter } from "next/router";
 
-
 function XTerminal() {
   const terminalRef = useRef<HTMLDivElement | null>(null);
   const ws = useRef<WebSocket | null>(null);
@@ -13,13 +12,13 @@ function XTerminal() {
   let userInput = ""; // Stores the user's current input line
 
   const router = useRouter();
-  const { id,name,ip,url,cli } = router.query;
-  const gateway_name=name as string
-  const gateway_ip=ip as string
-  const gateway_rpc_url=url as string
-  const gateway_id =id as string
-  const isCli = cli as boolean | string
-  console.log(gateway_ip,gateway_name,typeof(isCli))
+  const { id, name, ip, url, cli } = router.query;
+  const gateway_name = name as string;
+  const gateway_ip = ip as string;
+  const gateway_rpc_url = url as string;
+  const gateway_id = id as string;
+  const isCli = cli as boolean | string;
+  console.log(gateway_ip, gateway_name, typeof isCli);
 
   useEffect(() => {
     if (!terminalRef.current) return;
@@ -32,7 +31,17 @@ function XTerminal() {
     term.current.open(terminalRef.current);
 
     // Initialize WebSocket
-    ws.current = new WebSocket(`ws://54.160.199.231:3004?gateway_name=${encodeURIComponent(gateway_name)}&gateway_ip=${encodeURIComponent(gateway_ip)}&gateway_rpc=${encodeURIComponent(gateway_rpc_url)}&gateway_id=${encodeURIComponent(gateway_id)}&cli=${encodeURIComponent(isCli)}`);
+    ws.current = new WebSocket(
+      `ws://54.160.199.231:3004?gateway_name=${encodeURIComponent(
+        gateway_name
+      )}&gateway_ip=${encodeURIComponent(
+        gateway_ip
+      )}&gateway_rpc=${encodeURIComponent(
+        gateway_rpc_url
+      )}&gateway_id=${encodeURIComponent(gateway_id)}&cli=${encodeURIComponent(
+        isCli
+      )}`
+    );
 
     ws.current.onmessage = (event) => {
       const data = event.data;
@@ -71,18 +80,13 @@ function XTerminal() {
     }
 
     // Attach custom key event handler for Ctrl+V (paste)
-    term.current.attachCustomKeyEventHandler((e) => {
-      if (e.ctrlKey && e.key === "v") {
-        handlePaste();
-        return false;
-      }
-      return true;
-    });
+    terminalRef.current.addEventListener("paste", handlePaste);
 
     return () => {
       keyListener.dispose();
       ws.current?.close();
       term.current?.dispose();
+      terminalRef.current?.removeEventListener("paste", handlePaste);
     };
   }, []);
 
