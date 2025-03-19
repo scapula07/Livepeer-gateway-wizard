@@ -105,6 +105,7 @@ export default function LaunchPad() {
                   <button
                     className="text-sm font-semibold"
                     onClick={() => setNext(next - 1)}
+                    disabled={next === 1}
                   >
                     Cancel
                   </button>
