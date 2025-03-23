@@ -131,7 +131,7 @@ export default function Signup() {
             </h5>
 
             <h5 className="font-semibold text-sm  text-blue-500">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <span
                 className="text-green-600 cursor-pointer hover:text-black"
                 onClick={() => replace("/auth/signup")}

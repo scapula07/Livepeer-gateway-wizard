@@ -88,7 +88,7 @@ export default function Panel() {
           },
         ].map((tab, i) => {
           return (
-            <Link href={tab?.link}>
+            <Link href={tab?.link} key={i}>
               <div
                 className={`  flex w-full items-center space-x-4 ${
                   tab?.link === pathname ? "bg-[#58815794] " : "bg-white"
@@ -134,7 +134,7 @@ export default function Panel() {
             },
           ].map((tab, i) => {
             return (
-              <Link href={tab?.link}>
+              <Link href={tab?.link} key={i}>
                 <div
                   className={`  flex w-full items-center space-x-4 ${
                     tab?.link === active ? "bg-[#58815794] " : "bg-white"
