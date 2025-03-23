@@ -3,8 +3,8 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 
 export default function FAQ() {
   return (
-    <div className="w-full  flex px-10 py-20 font-mono space-x-10">
-      <div className="w-1/2 flex flex-col">
+    <div className="w-full flex md:flex-row flex-col px-10 py-20 font-mono md:space-x-10">
+      <div className="md:w-1/2 w-full flex flex-col">
         <div className="flex flex-col space-y-2">
           <h5 className="text-xl text-gray-700 font-semibold">
             Why should you use this Wizard?
@@ -44,7 +44,7 @@ export default function FAQ() {
           })}
         </div>
       </div>
-      <div className="w-1/2 flex flex-col">
+      <div className="md:w-1/2 w-full flex flex-col">
         <div className="flex flex-col space-y-2">
           <h5 className="text-xl text-gray-700 font-semibold">FAQ?</h5>
           <h5 className="h-1 w-1/4 bg-black"></h5>

@@ -10,10 +10,9 @@ export default function Hero() {
 
   return (
     <div className="w-full bg-[#A3B18A] text-[#1E1E1E]">
-      <Header />
-      <div className="w-full py-10 md:py-20">
-        <div className="w-full flex flex-col-reverse md:flex-row px-4 md:px-10 py-12 md:py-36 items-center">
-          <div className="w-full md:w-2/5 flex flex-col space-y-6 pt-10 text-center md:text-left">
+      <div className="w-full py-10 lg:py-20">
+        <div className="w-full flex flex-col-reverse lg:flex-row px-4 md:px-10 py-12 md:py-24">
+          <div className="w-full lg:w-2/5 flex flex-col space-y-6 md:pt-10 text-center lg:text-left">
             <div className="w-full space-y-2 md:space-y-4 flex flex-col">
               <h5 className="text-4xl md:text-6xl font-semibold">
                 Gateway to your
@@ -29,7 +28,7 @@ export default function Hero() {
               </button>
             </Link>
           </div>
-          <div className="w-full md:w-3/5 mb-8 md:mb-0">
+          <div className="w-full lg:w-3/5 mb-8 md:mb-0">
             <div className="w-full relative">
               <div className="w-full px-4 md:px-12">
                 <img src={"/world.png"} alt="World map" className="w-full" />
