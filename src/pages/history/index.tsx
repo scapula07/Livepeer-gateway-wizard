@@ -7,9 +7,12 @@ export default function History() {
       <div className="w-full flex flex-col">
         <h5 className="font-semibold text-xl text-slate-900">History</h5>
         <div className="flex flex-col space-y-6 py-6">
-          {[1, 2, 3].map(() => {
+          {[1, 2, 3].map((_, index) => {
             return (
-              <div className="border-b py-4 px-6 flex items-center justify-between">
+              <div
+                key={index}
+                className="border-b py-4 px-6 flex items-center justify-between"
+              >
                 <div className="flex flex-col space-y-2">
                   <h5 className="text-xs">Jan 1,2025</h5>
                   <div className="flex items-center space-x-4">

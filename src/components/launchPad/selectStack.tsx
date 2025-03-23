@@ -154,9 +154,12 @@ export default function SelectStack({
                 label: "Franfurt",
                 desc: "Low-latency ,88ms",
               },
-            ].map((tab) => {
+            ].map((tab, index) => {
               return (
-                <div className=" flex border px-4 py-6 space-x-2 cursor-pointer opacity-40 pointer-events-none">
+                <div
+                  key={index}
+                  className=" flex border px-4 py-6 space-x-2 cursor-pointer opacity-40 pointer-events-none"
+                >
                   {region === tab?.label ? (
                     <MdRadioButtonChecked className="text-green-500" />
                   ) : (
