@@ -36,13 +36,13 @@ export default function Signup() {
   return (
     <div className="w-full h-full font-mono  bg-[#A3B18A]">
       <Header />
-      <div className="w-full flex h-screen justify-center py-20 items-center">
-        <div className="flex flex-col items-center w-full space-y-5">
+      <div className="w-full flex h-screen md:py-20 py-5 md:px-0 px-5">
+        <div className="flex flex-col items-center pt-5 md:pt-0 w-full md:space-y-5 space-y-3">
           <h5 className="text-3xl font-semibold">Register</h5>
 
           <form
             onSubmit={submit}
-            className="w-1/2 shadow-lg py-10 px-8 space-y-8 bg-white"
+            className="md:w-1/2 w-full shadow-lg py-10 md:px-8 px-5 space-y-8 bg-white"
           >
             {error && <ErrorAlert error={error} />}
             {[
@@ -78,9 +78,9 @@ export default function Signup() {
               );
             })}
 
-            <div className="w-full flex items-center space-x-2">
-              <input className="outline-green-400 " type={"checkbox"} />
-              <h5 className="font-semibold text-gray-600">
+            <div className="w-full flex items-start space-x-2">
+              <input className="outline-green-400 mt-1" type={"checkbox"} />
+              <h5 className="font-semibold text-gray-600 md:text-base text-sm">
                 I want to receive updates about products and promotions.
               </h5>
             </div>

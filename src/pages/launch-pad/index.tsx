@@ -66,6 +66,7 @@ export default function LaunchPad() {
   };
 
   const handleClick = () => {
+    setError(null);
     if (validateStep()) {
       if (next == 2) {
         launch();
@@ -80,13 +81,20 @@ export default function LaunchPad() {
   return (
     <div className="w-full h-full overflow-y-hidden font-mono">
       <Navbar />
-      <div className="w-full flex justify-center px-10 h-full overflow-y-scroll">
-        <div className="w-full h-full border-l-2">
+      <div className="w-full flex justify-center md:px-10 px-5 h-full overflow-y-scroll">
+        <div className="w-full h-full md:border-l-2">
           <Navigator />
-          <div className="flex w-full">
-            <div className="w-1/3 h-full ">
+          <div className="flex md:flex-row flex-col md:space-y-0 space-y-6 w-full">
+            <div className="md:w-1/3 w-full h-full ">
               <Panel next={next} />
             </div>
+
+            {error && (
+              <div className="md:w-2/3 w-full h-full ">
+                <ErrorAlert error={error} />
+              </div>
+            )}
+
             <div className="w-full h-full overlow-y-scroll">
               {next === 1 && <SelectStack data={data} setData={setData} />}
               {next === 2 && (
