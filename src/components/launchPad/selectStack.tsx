@@ -27,7 +27,7 @@ export default function SelectStack({
           </h5>
         </div>
         <div className="w-full py-4 flex flex-col px-4 space-y-4">
-          <div className="w-full flex space-x-4">
+          <div className="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             {[
               {
                 label: " Livepeer Transcoding Gateway",
@@ -81,7 +81,7 @@ export default function SelectStack({
           </h5>
         </div>
         <div className="w-full py-4 flex flex-col px-4 space-y-4">
-          <div className="w-full flex space-x-4">
+          <div className="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             {[
               {
                 label: "AWS",
@@ -140,7 +140,7 @@ export default function SelectStack({
               streaming performance and comply with local regulations
             </h5>
           </div>
-          <div className="w-full grid grid-cols-2 gap-2">
+          <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-2">
             {[
               {
                 label: "Amsterdam",

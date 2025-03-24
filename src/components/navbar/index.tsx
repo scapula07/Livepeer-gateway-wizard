@@ -14,12 +14,13 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="w-full flex justify-between px-10 py-2.5 border-b border-slate-300 shadow font-mono">
+    <div className="w-full flex justify-between md:px-10 px-5 py-2.5 border-b border-slate-300 shadow font-mono">
       <div className="w-3/5 flex items-center space-x-4">
-        <div className="bg-[#58815794] w-10 h-10 flex items-center justify-center rounded-full">
-          <h5 className="text-2xl font-semibold text-[#1E1E1E]">G</h5>
-        </div>
-        <h5></h5>
+        <Link href="/" passHref>
+          <div className="bg-[#58815794] w-10 h-10 flex items-center justify-center rounded-full">
+            <h5 className="text-2xl font-semibold text-[#1E1E1E]">G</h5>
+          </div>
+        </Link>
         <Link href="/launch-pad">
           <button className="bg-[#58815794] text-xs font-semibold px-4 py-2 rounded-sm">
             Launch

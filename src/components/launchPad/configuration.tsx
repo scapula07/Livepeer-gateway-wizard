@@ -73,8 +73,8 @@ export default function Configuration({
             Keep this password handy.Make sure to never share or lose access to
             either the password.
           </h5>
-          <div className="w-full py-2">
-            <div className="flex space-x-3 relative">
+          <div className="w-full md:pt-2 pt-4 pb-2">
+            <div className="flex md:flex-row flex-col space-y-4 md:space-y-0 md:space-x-3 relative">
               {/* Password Input */}
               <div className="relative w-full">
                 <input
@@ -129,7 +129,7 @@ export default function Configuration({
             </h5>
             {/* <h5 className='text-xs'>Pick the geographic region for your deployment to optimize streaming performance and comply with local regulations</h5> */}
           </div>
-          <div className="w-full grid grid-cols-2 gap-2">
+          <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-2">
             {[
               {
                 label: "480p0",
@@ -146,7 +146,7 @@ export default function Configuration({
             ].map((tab, index) => {
               return (
                 <div
-                  className=" flex border px-4 py-6 space-x-2 cursor-pointer"
+                  className=" flex items-start border px-4 py-6 space-x-2 cursor-pointer"
                   onClick={() => {
                     setProfile(tab?.label);
                     setData({ ...data, transcoding_profile: tab?.label });
@@ -159,8 +159,10 @@ export default function Configuration({
                     <MdRadioButtonUnchecked className="text-green-500" />
                   )}
 
-                  <div className="flex flex-col">
-                    <h5 className="text-sm font-semibold">{tab?.label}</h5>
+                  <div className="flex flex-col space-y-1">
+                    <h5 className="text-sm font-semibold leading-none">
+                      {tab?.label}
+                    </h5>
                     <h5 className="text-[0.85rem] text-slate-600">
                       {tab?.desc}
                     </h5>
