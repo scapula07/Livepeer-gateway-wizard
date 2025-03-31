@@ -96,9 +96,9 @@ export default function Fund() {
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full px-4">
         <div className="flex items-center justify-between">
-          <h5 className="font-bold text-lg">Fund Your Gateway</h5>
+          <h5 className="font-bold md:text-lg text-sm">Fund Your Gateway</h5>
           <button
             className="bg-[#58815794] py-2 px-4 text-sm font-bold "
             onClick={connectWallet}
@@ -109,7 +109,7 @@ export default function Fund() {
           </button>
         </div>
 
-        <div className="flex space-x-8 justify-center py-28">
+        <div className="flex space-x-8 justify-center py-16">
           <div className="flex flex-col border h-20 w-44 px-3 py-1 space-y-5 rounded-sm">
             <h5>Reserve</h5>
             <h5 className="text-center text-green-500 font-bold">
@@ -154,7 +154,7 @@ const FundGateway = ({ item, loading }: { item: any; loading: boolean }) => {
   const [ethFund, setFund] = useState({ deposit: "", reserve: "", total: "" });
   const [gatewayAddress, setAddress] = useState("");
   return (
-    <div className="flex flex-col w-full items-center pt-4 w-full">
+    <div className="flex flex-col w-full items-center pt-4">
       <div className="flex items-center space-x-4">
         <h5 className="text-xl font-light">{item.label}</h5>
         {open ? (
@@ -170,26 +170,26 @@ const FundGateway = ({ item, loading }: { item: any; loading: boolean }) => {
         <div className="flex flex-col items-center space-y-4 py-6 w-full">
           <input
             placeholder="Deposit and Reserve amount(ETH)"
-            className="w-1/3 border border-black py-2 px-4  outline-green-600"
+            className="lg:w-1/3 w-full border border-black py-2 px-4  outline-green-600"
             value={ethFund.total}
             onChange={(e) => setFund({ ...ethFund, total: e.target.value })}
           />
           <input
             placeholder="Deposit amount(ETH)"
-            className="w-1/3 border border-black py-2 px-4  outline-green-600"
+            className="lg:w-1/3 w-full border border-black py-2 px-4  outline-green-600"
             value={ethFund.deposit}
             onChange={(e) => setFund({ ...ethFund, deposit: e.target.value })}
           />
           <input
             placeholder="Reserve amount(ETH)"
-            className="w-1/3 border border-black py-2 px-4 outline-green-600"
+            className="lg:w-1/3 w-full border border-black py-2 px-4 outline-green-600"
             value={ethFund.reserve}
             onChange={(e) => setFund({ ...ethFund, reserve: e.target.value })}
           />
           {item.label === "Fund Gateway For" && (
             <input
               placeholder="Gateway Address"
-              className="w-1/3 border border-black py-2 px-4  outline-green-600"
+              className="lg:w-1/3 w-full border border-black py-2 px-4  outline-green-600"
               value={gatewayAddress}
               onChange={(e) => setAddress(e.target.value)}
             />

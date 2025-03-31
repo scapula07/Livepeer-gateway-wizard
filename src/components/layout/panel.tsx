@@ -11,6 +11,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { gatewayStore } from "../../recoil";
 import { useRecoilState } from "recoil";
+import { truncateWithEllipses } from "@/lib/utils";
 
 type GATEWAY = {
   id: string;
@@ -73,8 +74,8 @@ export default function Panel() {
   }, [gateway_id]);
 
   return (
-    <div className="w-full h-full flex flex-col font-mono bg-white">
-      <div className="flex flex-col space-y-2 border-b py-2">
+    <div className="w-full h-full flex flex-col font-mono bg-white shadow">
+      <div className="flex flex-col md:space-y-2 space-y-5 border-b py-2">
         {[
           {
             icon: <AiOutlineGateway />,
@@ -90,11 +91,9 @@ export default function Panel() {
           return (
             <Link href={tab?.link} key={i}>
               <div
-                className={`  flex w-full items-center space-x-4 ${
+                className={`w-full items-center space-x-4 ${
                   tab?.link === pathname ? "bg-[#58815794] " : "bg-white"
-                } 
-                                 px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-black
-                              `}
+                } px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-black md:flex hidden`}
                 key={i}
               >
                 <h5 className="font-bold">{tab?.icon}</h5>
@@ -102,14 +101,18 @@ export default function Panel() {
                   {tab?.label}
                 </h5>
               </div>
+              <h5 className="font-bold md:hidden block px-4">{tab?.icon}</h5>
             </Link>
           );
         })}
       </div>
-      {gateway_id?.length != undefined && (
-        <div className="flex flex-col space-y-2 py-2">
-          <h5 className="text-lg font-semibold px-4">
-            {gateway?.title} Gateway
+      {gateway_id && gateway && (
+        <div className="flex flex-col md:gap-y-2 gap-y-5 py-3">
+          <h5 className="text-lg font-semibold px-4 hidden md:block">
+            {truncateWithEllipses(gateway.title, 15)} Gateway
+          </h5>
+          <h5 className="text-lg font-semibold px-4 md:hidden block text-center">
+            {gateway.title.charAt(0).toUpperCase()}
           </h5>
           {[
             {
@@ -138,8 +141,7 @@ export default function Panel() {
                 <div
                   className={`  flex w-full items-center space-x-4 ${
                     tab?.link === active ? "bg-[#58815794] " : "bg-white"
-                  } 
-                                        px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-black
+                  } px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-black md:flex hidden
                                      `}
                   key={i}
                   onClick={() => setActive(tab?.link)}
@@ -149,6 +151,7 @@ export default function Panel() {
                     {tab?.label}
                   </h5>
                 </div>
+                <h5 className="font-bold md:hidden block px-4">{tab?.icon}</h5>
               </Link>
             );
           })}

@@ -9,6 +9,8 @@ import { _deploy } from "@/lib/api/gateway.api";
 import { DeploymentParams } from "@/lib/api/types";
 import { useRouter } from "next/router";
 import ErrorAlert from "@/components/ui/error-alert";
+import { gatewayApi } from "@/firebase/gateway";
+import { useUser } from "@/hooks/useUser";
 
 export default function LaunchPad() {
   const [next, setNext] = useState(1);
@@ -16,16 +18,10 @@ export default function LaunchPad() {
   const [error, setError] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const router = useRouter();
-  const { id } = router.query;
-  const gateway_id = id as string;
-
-  function sleep(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  const { user } = useUser();
 
   const [data, setData] = useState<DeploymentParams>({
-    id: gateway_id,
+    id: "",
     gateway_type: "",
     provider: "",
     region: "",
@@ -37,10 +33,12 @@ export default function LaunchPad() {
 
   const launch = async () => {
     setLoading(true);
-    await sleep(2000);
-    setNext(3);
     try {
-      const response = await _deploy(data);
+      const gatewayResponse = await gatewayApi.createInstance(user?.id);
+      const newData = { ...data, id: gatewayResponse.data?.id };
+      setData(newData);
+      setNext(3);
+      const response = await _deploy(newData);
       response?.data && setLoading(false);
     } catch (e: any) {
       setError(e.message);
@@ -88,14 +86,12 @@ export default function LaunchPad() {
             <div className="md:w-1/3 w-full h-full ">
               <Panel next={next} />
             </div>
-
-            {error && (
-              <div className="md:w-2/3 w-full h-full ">
-                <ErrorAlert error={error} />
-              </div>
-            )}
-
             <div className="w-full h-full overlow-y-scroll">
+              {error && (
+                <div className="md:w-2/3 mx-auto mb-5 w-full h-full ">
+                  <ErrorAlert error={error} />
+                </div>
+              )}
               {next === 1 && <SelectStack data={data} setData={setData} />}
               {next === 2 && (
                 <Configuration
@@ -106,7 +102,7 @@ export default function LaunchPad() {
                 />
               )}
               {next === 3 && (
-                <Loader data={data} isLoading={isLoading} id={gateway_id} />
+                <Loader data={data} isLoading={isLoading} id={data.id} />
               )}
               {next != 3 && (
                 <div className="w-full flex justify-end space-x-4 py-4">

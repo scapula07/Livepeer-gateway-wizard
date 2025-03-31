@@ -91,10 +91,9 @@ function XTerminal() {
   }, []);
 
   return (
-    <div
-      ref={terminalRef}
-      style={{ height: "100vh", width: "100%", backgroundColor: "black" }}
-    ></div>
+    <div className="fixed inset-0 flex items-center justify-center bg-black">
+      <div ref={terminalRef} className="w-full h-full"></div>
+    </div>
   );
 }
 

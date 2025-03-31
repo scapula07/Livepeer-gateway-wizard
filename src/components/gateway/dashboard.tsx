@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { gatewayStore, userStore } from "@/recoil";
 import { useRecoilValue } from "recoil";
-import { BeatLoader, ClipLoader } from "react-spinners";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { TbWorld } from "react-icons/tb";
-import { LiaDownloadSolid } from "react-icons/lia";
+import { ClipLoader } from "react-spinners";
 import { GoDotFill } from "react-icons/go";
 import { useRouter } from "next/router";
 import {
@@ -67,11 +64,12 @@ export default function Dashboard() {
     };
   }, []);
 
-  const router = useRouter();
-
   useEffect(() => {
+    if (!gateway) return;
+
     fetchMetrics();
-    const interval = setInterval(() => fetchMetrics(), 30000); // Refresh every 30s
+    const interval = setInterval(fetchMetrics, 30000);
+
     return () => clearInterval(interval);
   }, [gateway]);
 
@@ -129,30 +127,41 @@ export default function Dashboard() {
     }
   };
 
+  useEffect(() => {
+    if (!gateway) return;
+
+    fetchMetrics();
+    const interval = setInterval(fetchMetrics, 30000);
+
+    return () => clearInterval(interval);
+  }, [gateway]);
+
   return (
     <>
-      <div className="w-full h-full flex flex-col space-y-10">
-        <div className="flex w-full justify-between">
-          <h5 className="font-semibold text-xl">Hello {user?.email}! 👋</h5>
-          <div className="flex space-x-6">
+      <div className="w-full px-4 max-w-full h-full flex flex-col space-y-10">
+        <div className="flex flex-col space-y-3 w-full items-center justify-center">
+          <h5 className="font-semibold md:text-xl text-base">
+            Hello {user?.email}! 👋
+          </h5>
+          <div className="flex space-x-3 md:space-x-6">
             {gateway.status != "running" ? (
-              <div className="flex items-center space-x-1.5 bg-gray-200 py-2 px-4 rounded-full">
+              <div className="flex w-fit items-center space-x-1.5 bg-gray-200 py-2 px-4 rounded-full">
                 <ClipLoader color="gray" size={16} />
                 <p className="text-xs">Initializing</p>
               </div>
             ) : (
-              <div className="flex items-center space-x-1.5 bg-orange-200 py-2 px-4 rounded-full">
+              <div className="flex w-fit items-center space-x-1.5 bg-orange-200 py-2 px-4 rounded-full">
                 <GoDotFill className="text-orange-600 text-xl" />
                 <p className="text-xs text-orange-700 font-semibold">Running</p>
               </div>
             )}
             <button
-              className="border border-gray-200  bg-[#58815794] py-3 px-8 font-semibold rounded-full space-x-3 w-[80%] text-xs flex items-center justify-center"
+              className="border border-gray-200  bg-[#58815794] py-3 px-8 font-semibold rounded-full space-x-3 md:w-[80%] w-fit text-xs flex items-center justify-center"
               onClick={() => setTrigger(true)}
             >
               {gateway.ethAddress?.length > 0 ? (
                 <span>
-                  {gateway.ethAddress.slice(0, 15) +
+                  {gateway.ethAddress.slice(0, 10) +
                     "..." +
                     gateway.ethAddress.slice(-4)}
                 </span>
@@ -165,22 +174,21 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="w-full ">
-          <div className="flex w-full">
+        <div className="w-full">
+          <div className="flex flex-col md:flex-row w-full gap-6">
             {[
-              {
-                label: "CPU Usage",
-                data: cpuData,
-              },
-              {
-                label: "Memory Storage",
-                data: memoryData,
-              },
-            ].map((i, index) => {
-              return (
-                <div key={index} className="flex flex-col w-full">
-                  <h5 className="text-xl">{i.label}</h5>
-                  <ResponsiveContainer width="100%" height={300}>
+              { label: "CPU Usage", data: cpuData },
+              { label: "Memory Storage", data: memoryData },
+            ].map((i, index) => (
+              <div key={index} className="w-full min-w-0">
+                <h5 className="text-base md:text-lg lg:text-xl mb-2">
+                  {i.label}
+                </h5>
+                <div className="w-full max-w-full overflow-hidden">
+                  <ResponsiveContainer
+                    width="100%"
+                    height={window.innerWidth < 768 ? 180 : 300}
+                  >
                     <AreaChart data={i.data}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="time" />
@@ -195,15 +203,16 @@ export default function Dashboard() {
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
-          <div className="w-[100%] py-6 ">
+
+          <div className="w-[100%] py-6">
             <div
-              className=" w-[100%] flex flex-col space-y-6 overflow-x-scroll no-scrollbar"
+              className=" w-[100%] flex flex-col space-y-6 overflow-x-scroll shadow"
               ref={dropdownRef}
             >
-              <table className="table-auto w-[180%] border-separate border-spacing-0.5">
+              <table className="table-auto md:w-[180%] w-full border-separate border-spacing-0.5">
                 <thead className="py-2 bg-[#58815794]">
                   <tr>
                     {[
@@ -216,7 +225,7 @@ export default function Dashboard() {
                       return (
                         <th
                           key={index}
-                          className="text-sm text-left text-gray-800 font-semibold px-3"
+                          className="text-sm text-left text-gray-800 font-semibold px-3 whitespace-nowrap"
                         >
                           {text}
                         </th>
@@ -260,7 +269,7 @@ export default function Dashboard() {
                         ".." +
                         gateway.ethAddress?.slice(-2)}
                     </td>
-                    <td className="bg-white  px-4  font-semibold">
+                    <td className="bg-white px-4 whitespace-nowrap font-semibold">
                       {gateway?.createdAt}
                     </td>
                   </tr>
@@ -293,7 +302,7 @@ const GatewayAccount = ({
   const router = useRouter();
 
   return (
-    <div className="bg-white w-1/3  py-4 rounded-lg flex flex-col items-center justify-center">
+    <div className="bg-white md:w-1/3 w-full mx-2 py-4 rounded-lg flex flex-col items-center justify-center">
       <div className="w-full flex justify-end px-4">
         <IoMdClose className="text-3xl" onClick={() => setTrigger(false)} />
       </div>

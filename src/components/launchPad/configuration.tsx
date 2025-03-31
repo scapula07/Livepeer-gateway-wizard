@@ -47,7 +47,7 @@ export default function Configuration({
               className="w-full border py-1 rounded-sm outline-green-500 px-4 text-xs h-10"
               value={data.gatewayName}
               onChange={(e) =>
-                setData({ ...data, gatewayName: e.target.value })
+                setData({ ...data, gatewayName: e.target.value.trim() })
               }
             />
           </div>
