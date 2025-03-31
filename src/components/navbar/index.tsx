@@ -21,7 +21,7 @@ export default function Navbar() {
             <h5 className="text-2xl font-semibold text-[#1E1E1E]">G</h5>
           </div>
         </Link>
-        <Link href="/launch-pad">
+        <Link href="/gateways">
           <button className="bg-[#58815794] text-xs font-semibold px-4 py-2 rounded-sm">
             Launch
           </button>

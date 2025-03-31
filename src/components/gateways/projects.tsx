@@ -31,9 +31,7 @@ type GATEWAY = {
 export default function Projects() {
   const { replace } = useRouter();
   const user = useRecoilValue(userStore) as { id: string };
-  const [isLoading, setLoading] = useState<boolean>(false);
   const [gateways, setGateways] = useState<GATEWAY[]>([]);
-  const [gateway, setGateway] = useState<GATEWAY>();
 
   useEffect(() => {
     gatewayApi
@@ -44,33 +42,19 @@ export default function Projects() {
       .catch();
   }, [user?.id]);
 
-  const createInstance = async () => {
-    setLoading(true);
-    try {
-      const response = await gatewayApi.createInstance(user?.id);
-      response?.status && setGateway(response.data);
-      response?.status && setLoading(false);
-      replace({
-        pathname: `/launch-pad/`,
-        query: { id: `${response?.data?.id}` },
-      });
-    } catch (e) {
-      setLoading(false);
-    }
+  const createInstance = () => {
+    replace("/launch-pad/");
   };
   return (
     <>
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col px-4">
         <h5 className="font-semibold text-xl text-slate-900">Your Gateways</h5>
 
-        <div className="grid grid-cols-3 w-full py-4 gap-4">
+        <div className="grid md:grid-cols-3 grid-cols-1 w-full py-4 gap-4">
           <div
             className={`bg-slate-100 w-full h-28 rounded-sm font-semibold flex flex-col items-center justify-center hover:bg-slate-200 
-                     transition duration-300 ease-in-out ${
-                       isLoading &&
-                       "animate-pulse opacity-75 cursor-not-allowed"
-                     }`}
-            onClick={() => !isLoading && createInstance()}
+                     transition duration-300 ease-in-out`}
+            onClick={createInstance}
           >
             <h5>Launch</h5>
             <h5 className="text-sm ">A New Gateway</h5>

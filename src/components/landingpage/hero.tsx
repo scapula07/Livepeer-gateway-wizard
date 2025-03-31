@@ -22,7 +22,7 @@ export default function Hero() {
               </h5>
               <h5 className="text-4xl md:text-6xl font-semibold">Server</h5>
             </div>
-            <Link href={user.email ? "/launch-pad" : "/auth/login"}>
+            <Link href={user.email ? "/gateways" : "/auth/login"}>
               <button className="bg-[#344E41] text-white font-semibold py-4 md:py-7 w-full md:w-1/2 mx-auto md:mx-0">
                 Launch Gateway
               </button>
