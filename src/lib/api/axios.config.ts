@@ -13,6 +13,7 @@ const axiosConfig = axios.create({
   baseURL: baseUrl,
   headers,
   withCredentials: true,
+  timeout: 60000,
 });
 
 axiosConfig.interceptors.request.use(

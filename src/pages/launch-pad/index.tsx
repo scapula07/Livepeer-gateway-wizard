@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import ErrorAlert from "@/components/ui/error-alert";
 import { gatewayApi } from "@/firebase/gateway";
 import { useUser } from "@/hooks/useUser";
+import axios from "axios";
 
 export default function LaunchPad() {
   const [next, setNext] = useState(1);
@@ -38,7 +39,7 @@ export default function LaunchPad() {
       const newData = { ...data, id: gatewayResponse.data?.id };
       setData(newData);
       setNext(3);
-      const response = await _deploy(newData);
+      const response = await axios.post("/api/deploy", newData);
       response?.data && setLoading(false);
     } catch (e: any) {
       setError(e.message);
