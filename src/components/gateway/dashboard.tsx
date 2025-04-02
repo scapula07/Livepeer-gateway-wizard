@@ -64,14 +64,14 @@ export default function Dashboard() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!gateway) return;
+  // useEffect(() => {
+  //   if (!gateway) return;
 
-    fetchMetrics();
-    const interval = setInterval(fetchMetrics, 30000);
+  //   fetchMetrics();
+  //   const interval = setInterval(fetchMetrics, 30000);
 
-    return () => clearInterval(interval);
-  }, [gateway]);
+  //   return () => clearInterval(interval);
+  // }, [gateway]);
 
   const fetchMetrics = async () => {
     const match = gateway?.dashboardUrl?.match(/\/d\/([^/]+)/);
@@ -175,7 +175,7 @@ export default function Dashboard() {
         </div>
 
         <div className="w-full">
-          <div className="flex flex-col md:flex-row w-full gap-6">
+          {/* <div className="flex flex-col md:flex-row w-full gap-6">
             {[
               { label: "CPU Usage", data: cpuData },
               { label: "Memory Storage", data: memoryData },
@@ -205,7 +205,7 @@ export default function Dashboard() {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
 
           <div className="w-[100%] py-6">
             <div

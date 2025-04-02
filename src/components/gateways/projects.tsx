@@ -52,8 +52,7 @@ export default function Projects() {
 
         <div className="grid md:grid-cols-3 grid-cols-1 w-full py-4 gap-4">
           <div
-            className={`bg-slate-100 w-full h-28 rounded-sm font-semibold flex flex-col items-center justify-center hover:bg-slate-200 
-                     transition duration-300 ease-in-out`}
+            className={`bg-slate-100 w-full h-28 rounded-sm font-semibold flex flex-col items-center justify-center hover:bg-slate-200 cursor-pointer transition duration-300 ease-in-out`}
             onClick={createInstance}
           >
             <h5>Launch</h5>
