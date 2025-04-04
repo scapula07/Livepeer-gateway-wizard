@@ -139,7 +139,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="w-full px-4 max-w-full h-full flex flex-col space-y-10">
-        <div className="flex flex-col space-y-3 w-full items-center justify-center">
+        <div className="flex flex-col space-y-7 w-full items-center justify-center">
           <h5 className="font-semibold md:text-xl text-base">
             Hello {user?.email}! 👋
           </h5>
