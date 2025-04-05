@@ -82,11 +82,6 @@ export default function Panel() {
             label: "Gateways",
             link: "/gateways",
           },
-          {
-            icon: <TbWaveSawTool />,
-            label: "Home",
-            link: "/",
-          },
         ].map((tab, i) => {
           return (
             <Link href={tab?.link} key={i}>
