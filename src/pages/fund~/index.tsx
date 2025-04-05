@@ -16,6 +16,10 @@ import { FaRegMinusSquare } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import Error from "next/error";
+import { FaCopy, FaEthereum, FaCoffee } from 'react-icons/fa'
+import { IoMdCheckmark } from 'react-icons/io'
+
+
 export default function Fund() {
   const { connectWallet, walletState } = useWeb3Provider();
   const [fund, setFund] = useState<FundParams>();
@@ -113,6 +117,12 @@ export default function Fund() {
         ].map((item, index) => {
           return <FundGateway key={index} item={item} loading={loading} />;
         })}
+
+        <div className="py-10">
+              < BuyMeCoffee />
+        </div>
+
+         
       </div>
       <Modal trigger={trigger} cname="">
         <Withdraw setTrigger={setTrigger} />
@@ -185,3 +195,62 @@ const FundGateway = ({ item, loading }: { item: any; loading: boolean }) => {
     </div>
   );
 };
+
+
+
+
+
+
+ function BuyMeCoffee() {
+    const [copied, setCopied] = useState(false)
+    const ethAddress = '0x52C9cF3B6BA0fb918CccCEAB6a48D93436B13d6b' // Replace with your ETH address
+
+    const copyToClipboard = async () => {
+        try {
+            await navigator.clipboard.writeText(ethAddress)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000) // Reset after 2 seconds
+        } catch (err) {
+            console.error('Failed to copy:', err)
+        }
+    }
+
+    return (
+        <div className='w-full flex flex-col items-center py-8 mt-auto'>
+            <div className='flex flex-col items-center space-y-4'>
+                {/* Title */}
+                <div className='flex items-center space-x-2'>
+                    <FaCoffee className='text-amber-700 text-xl' />
+                    <h3 className='text-lg font-medium'>Buy Me a Coffee</h3>
+                </div>
+
+                {/* ETH Address Container */}
+                <div className='flex items-center space-x-2 bg-gray-100 px-4 py-2 rounded-lg'>
+                    <FaEthereum className='text-gray-600' />
+                    <span className='text-sm font-mono text-gray-600 hidden sm:block'>
+                        {ethAddress}
+                    </span>
+                    <span className='text-sm font-mono text-gray-600 sm:hidden'>
+                        {`${ethAddress.slice(0, 6)}...${ethAddress.slice(-4)}`}
+                    </span>
+                    <button
+                        onClick={copyToClipboard}
+                        className='p-1.5 hover:bg-gray-200 rounded-full transition-colors'
+                        title='Copy address'
+                    >
+                        {copied ? (
+                            <IoMdCheckmark className='text-green-500 text-lg' />
+                        ) : (
+                            <FaCopy className='text-gray-500 text-sm' />
+                        )}
+                    </button>
+                </div>
+
+                {/* Message */}
+                <p className='text-sm text-gray-500 text-center max-w-md'>
+                    If you find this helpful, consider buying me a coffee! Your support helps keep the project going.
+                </p>
+            </div>
+        </div>
+    )
+}

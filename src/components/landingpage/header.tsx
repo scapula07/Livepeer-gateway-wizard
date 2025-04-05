@@ -36,8 +36,10 @@ export default function Header() {
           <Link href="/fund~">
             <h5 className="font-light cursor-pointer">Fund A Gateway</h5>
           </Link>
-          <h5 className="font-light cursor-pointer">Blog</h5>
-          <h5 className="font-light cursor-pointer">Contact us</h5>
+          <Link href="/blog">
+             <h5 className="font-light cursor-pointer">Blog</h5>
+          </Link>
+          {/* <h5 className="font-light cursor-pointer">Contact us</h5> */}
           {user?.email ? (
             <div className="relative">
               <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -53,6 +55,13 @@ export default function Header() {
                   >
                     Logout
                   </button>
+                  <Link href="/gateways">
+                      <h5
+                        className="w-full px-4 py-2 text-left hover:bg-gray-100"
+                      >
+                        Dashboard
+                      </h5>
+                  </Link>
                 </div>
               )}
             </div>
@@ -83,8 +92,10 @@ export default function Header() {
           <Link href="/fund~" onClick={() => setIsMenuOpen(false)}>
             <h5 className="font-light cursor-pointer">Fund A Gateway</h5>
           </Link>
-          <h5 className="font-light cursor-pointer">Blog</h5>
-          <h5 className="font-light cursor-pointer">Contact us</h5>
+          <Link href="/blog" onClick={() => setIsMenuOpen(false)}>
+           <h5 className="font-light cursor-pointer">Blog</h5>
+          </Link>
+          {/* <h5 className="font-light cursor-pointer">Contact us</h5> */}
 
           {user?.email ? (
             <div className="relative">
@@ -101,6 +112,13 @@ export default function Header() {
                   >
                     Logout
                   </button>
+                  <Link href="/gateways">
+                      <h5
+                        className="w-full px-4 py-2 text-left hover:bg-gray-100"
+                      >
+                        Dashboard
+                      </h5>
+                  </Link>
                 </div>
               )}
             </div>

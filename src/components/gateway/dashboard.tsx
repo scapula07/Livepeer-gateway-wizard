@@ -296,7 +296,7 @@ const GatewayAccount = ({
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(gateway.ethAddress)
-      .then(() => alert("URL copied to clipboard!"))
+      .then(() => alert("Ethereum address to clipboard!"))
       .catch((err) => console.error("Failed to copy:", err));
   };
   const router = useRouter();

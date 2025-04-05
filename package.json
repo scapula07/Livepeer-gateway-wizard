@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.1",
     "@radix-ui/themes": "^3.1.4",
     "@react-three/drei": "^9.111.5",
     "@react-three/fiber": "^8.17.6",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/nprogress": "^0.2.3",
     "@types/three": "^0.168.0",
     "@xterm/xterm": "^5.5.0",
@@ -31,6 +34,7 @@
     "react-type-animation": "^3.2.0",
     "recharts": "^2.15.1",
     "recoil": "^0.7.7",
+    "tailwind-scrollbar-hide": "^2.0.0",
     "three": "^0.168.0",
     "usehooks-ts": "^3.1.1",
     "web3": "^4.16.0",
