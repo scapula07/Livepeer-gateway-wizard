@@ -14,10 +14,8 @@ import { useRecoilState } from "recoil";
 import { truncateWithEllipses } from "@/lib/utils";
 import { IoIosApps } from "react-icons/io";
 import { AiFillApi } from "react-icons/ai";
-import Endpoint from "../gateway/endpoint"
-import Apps from "../gateway/apps"
-
-
+import Endpoint from "../gateway/endpoint";
+import Apps from "../gateway/apps";
 
 type GATEWAY = {
   id: string;
@@ -88,11 +86,6 @@ export default function Panel() {
             label: "Gateways",
             link: "/gateways",
           },
-          // {
-          //   icon: <TbWaveSawTool />,
-          //   label: "Home",
-          //   link: "/",
-          // },
         ].map((tab, i) => {
           return (
             <Link href={tab?.link} key={i}>
@@ -131,16 +124,16 @@ export default function Panel() {
               label: "Fund Gateway",
               link: `/gateways/${gateway_id}/fund`,
             },
-             {
-               icon:< AiFillApi/>,
-               label:"Endpoints",
-               link:`/gateways/${gateway_id}/endpoints`
-             },
-             {
-               icon:< IoIosApps/>,
-               label:"Apps",
-               link:`/gateways/${gateway_id}/apps`
-             },
+            {
+              icon: <AiFillApi />,
+              label: "Endpoints",
+              link: `/gateways/${gateway_id}/endpoints`,
+            },
+            {
+              icon: <IoIosApps />,
+              label: "Apps",
+              link: `/gateways/${gateway_id}/apps`,
+            },
             {
               icon: <FaDeleteLeft style={{ color: "red" }} />,
               label: "Terminate",
