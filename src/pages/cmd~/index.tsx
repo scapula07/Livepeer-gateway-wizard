@@ -32,7 +32,7 @@ function XTerminal() {
 
     // Initialize WebSocket
     ws.current = new WebSocket(
-      `ws://54.160.199.231:3004?gateway_name=${encodeURIComponent(
+      `ws://98.84.138.196:3005?gateway_name=${encodeURIComponent(
         gateway_name
       )}&gateway_ip=${encodeURIComponent(
         gateway_ip

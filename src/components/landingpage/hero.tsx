@@ -14,13 +14,10 @@ export default function Hero() {
         <div className="w-full flex flex-col-reverse lg:flex-row px-4 md:px-10 py-12 md:py-24">
           <div className="w-full lg:w-2/5 flex flex-col space-y-6 md:pt-10 text-center lg:text-left">
             <div className="w-full space-y-2 md:space-y-4 flex flex-col">
+              <h5 className="text-4xl md:text-6xl font-semibold">Gateway to</h5>
               <h5 className="text-4xl md:text-6xl font-semibold">
-                Gateway to your
+                Livepeer Network
               </h5>
-              <h5 className="text-4xl md:text-6xl font-semibold">
-                Livepeer Media
-              </h5>
-              <h5 className="text-4xl md:text-6xl font-semibold">Server</h5>
             </div>
             <Link href={user.email ? "/gateways" : "/auth/login"}>
               <button className="bg-[#344E41] text-white font-semibold py-4 md:py-7 w-full md:w-1/2 mx-auto md:mx-0">
