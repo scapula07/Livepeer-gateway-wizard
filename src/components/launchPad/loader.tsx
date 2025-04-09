@@ -1,5 +1,4 @@
-import React from "react";
-import GridLoader from "react-spinners/GridLoader";
+import React, { useState } from "react";
 import { DeploymentParams } from "@/lib/api/types";
 import Confetti from "react-confetti";
 import Link from "next/link";
@@ -8,19 +7,27 @@ export default function Loader({
   data,
   isLoading,
   id,
+  progress,
+  showProgress,
 }: {
   data: DeploymentParams;
   isLoading: boolean;
   id: string;
+  progress: number;
+  showProgress: boolean;
 }) {
   return (
     <div className="w-full h-[50vh] md:py-20 py-5">
-      {isLoading ? (
-        <div className="w-full flex flex-col items-center space-y-4">
-          <GridLoader color="orange" size={"30px"} />
-          <div className="flex flex-col space-y-2 items-center">
-            <h5 className="font-semibold">Launching Your Gateway...</h5>
-            <h5 className="text-sm">This might take some minutes</h5>
+      {showProgress ? (
+        <div className="w-2/3 mx-auto px-5 pt-6 pb-10 shadow rounded flex flex-col space-y-5">
+          <h2 className="text-center font-bold text-2xl">
+            Preparing your dashboard... {progress}%
+          </h2>
+          <div className="w-full max-w-xl mx-auto bg-gray-200 rounded-lg h-2 overflow-hidden">
+            <div
+              className="bg-[#58815794] h-full transition-all duration-1000 ease-linear rounded-lg"
+              style={{ width: `${progress}%` }}
+            />
           </div>
         </div>
       ) : (

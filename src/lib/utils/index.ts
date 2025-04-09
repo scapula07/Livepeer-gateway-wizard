@@ -1,3 +1,6 @@
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/config";
+
 export function truncateWithEllipses(
   inputString: string,
   numLetters: number
@@ -21,3 +24,14 @@ export function truncateWithEllipses(
 
   return result.trim() + "...";
 }
+
+export const getGatewayStatus = async (
+  gatewayId: string
+): Promise<string | null> => {
+  if (!gatewayId) return null;
+
+  const gatewayRef = doc(db, "gateways", gatewayId);
+  const snapshot = await getDoc(gatewayRef);
+
+  return snapshot.exists() ? snapshot.data()?.status : null;
+};
