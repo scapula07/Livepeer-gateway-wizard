@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import { DeploymentParams } from "@/lib/api/types";
 import Confetti from "react-confetti";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
+import { gatewayApi } from "@/firebase/gateway";
+import { BeatLoader, ClipLoader } from "react-spinners";
 export default function Loader({
   data,
   isLoading,
   id,
   progress,
   showProgress,
+  deploymentFailed
 }: {
   data: DeploymentParams;
   isLoading: boolean;
   id: string;
   progress: number;
   showProgress: boolean;
+  deploymentFailed:boolean
 }) {
   return (
     <div className="w-full h-[50vh] md:py-20 py-5">
@@ -31,7 +35,13 @@ export default function Loader({
           </div>
         </div>
       ) : (
-        <Deployed id={id} />
+        <>
+        {deploymentFailed?
+              <Retry id={id}/>
+              :
+              <Deployed id={id} />
+           }             
+        </>
       )}
     </div>
   );
@@ -60,3 +70,34 @@ const Deployed = ({ id }: { id: string }) => {
     </div>
   );
 };
+
+const Retry=({ id }: { id: string })=>{
+  const { replace } = useRouter();
+  const [isLoading,setLoading]=useState(false)
+  const retry= async() => {
+    setLoading(true)
+    try{
+      const res=await gatewayApi.deleteInstance(id)
+      res&&replace("/launch-pad/");
+      setLoading(false)
+    }catch(e){
+      console.log(e)
+      setLoading(false)
+    }
+  };
+   return(
+    <div className="w-full h-[50vh] md:py-20 py-5">
+        <div className="w-2/3 mx-auto px-5 pt-6 pb-10 shadow rounded flex flex-col items-center space-y-5">
+            <h2 className="text-center font-bold text-2xl text-red-600">
+                Deployment Failed  😞
+            </h2>
+           
+                <button className="bg-[#58815794] px-8 py-2 rounded-xl text-sm hover:bg-black hover:text-white " 
+                  onClick={retry}
+                 >
+                  Retry {isLoading&&<BeatLoader size={6}/>}
+                </button>
+          </div>
+      </div>
+    )
+}

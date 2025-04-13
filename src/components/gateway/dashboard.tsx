@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { gatewayStore, userStore } from "@/recoil";
 import { useRecoilValue } from "recoil";
-import { ClipLoader } from "react-spinners";
+import { BeatLoader, ClipLoader } from "react-spinners";
 import { GoDotFill } from "react-icons/go";
 import { useRouter } from "next/router";
 import {
@@ -23,6 +23,7 @@ import {
   MdKeyboardArrowDown,
   MdKeyboardArrowRight,
 } from "react-icons/md";
+import { gatewayApi } from "@/firebase/gateway";
 
 type GATEWAY = {
   id: string;
@@ -136,6 +137,21 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, [gateway]);
 
+  const { replace } = useRouter();
+  const [isLoading,setLoading]=useState(false)
+  const retry= async() => {
+    setLoading(true)
+    try{
+      const res=await gatewayApi.deleteInstance(gateway?.id)
+      res&&replace("/launch-pad/");
+      setLoading(false)
+    }catch(e){
+      console.log(e)
+      setLoading(false)
+    }
+  };
+
+
   return (
     <>
       <div className="w-full px-4 max-w-full h-full flex flex-col space-y-10">
@@ -143,12 +159,21 @@ export default function Dashboard() {
           <h5 className="font-semibold md:text-xl text-base">
             Hello {user?.email}! 👋
           </h5>
-          <div className="flex space-x-3 md:space-x-6">
+          <div className="flex space-x-3 md:space-x-6 ">
             {gateway.status != "running" ? (
-              <div className="flex w-fit items-center space-x-1.5 bg-gray-200 py-2 px-4 rounded-full">
-                <ClipLoader color="gray" size={16} />
-                <p className="text-xs">Initializing</p>
-              </div>
+              <>
+                  {gateway.status==="failed"?
+                      <button className="bg-red-600 w-48 px-8 py-2 text-xs rounded-full" onClick={retry}>
+                        Retry {isLoading&&<BeatLoader size={6}/>}
+                      </button>
+                      :
+                    <div className="flex w-fit items-center space-x-1.5 bg-gray-200 py-2 px-4 rounded-full">
+                      <ClipLoader color="gray" size={16} />
+                      <p className="text-xs">Initializing</p>
+                    </div>
+                  }        
+              </>
+       
             ) : (
               <div className="flex w-fit items-center space-x-1.5 bg-orange-200 py-2 px-4 rounded-full">
                 <GoDotFill className="text-orange-600 text-xl" />

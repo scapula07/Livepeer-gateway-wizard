@@ -4,7 +4,7 @@ import {
    } from "firebase/auth";
    
 import {db } from './config'
-import { doc,getDoc,setDoc,addDoc,collection ,getDocs,query,where,orderBy}  from "firebase/firestore";
+import { doc,getDoc,setDoc,addDoc,collection ,getDocs,query,where,orderBy,deleteDoc}  from "firebase/firestore";
 import { upload } from "@/lib/uploadImgUrl";
 
 
@@ -48,5 +48,14 @@ export const gatewayApi= {
          }catch(e){
             console.log(e)
          }
+    },
+    deleteInstance:async function (id:string) {
+         try{
+            await deleteDoc(doc(db, "gateways",id));
+            return true
+          }catch(e){
+            console.log(e)
+          }
+
     }
 }

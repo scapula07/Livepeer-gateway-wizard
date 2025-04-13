@@ -17,6 +17,7 @@ export default function LaunchPad() {
   const [next, setNext] = useState(1);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [deploymentFailed, setDeploymentFailed] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [progress, setProgress] = useState(0);
   const [showProgress, setShowProgress] = useState(false);
@@ -66,6 +67,16 @@ export default function LaunchPad() {
           setProgress(100);
           clearInterval(interval);
           setShowProgress(false);
+       
+          setLoading(false);
+          return;
+        }
+
+        if (currentStatus === "failed") {
+          setProgress(100);
+          clearInterval(interval);
+          setShowProgress(false);
+          setDeploymentFailed(true)
           setLoading(false);
           return;
         }
@@ -153,6 +164,7 @@ export default function LaunchPad() {
                   progress={Math.round(progress)}
                   showProgress={showProgress}
                   id={data.id}
+                  deploymentFailed={deploymentFailed}
                 />
               )}
               {next != 3 && (
