@@ -7,6 +7,7 @@ import { gatewayStore, userStore } from "@/recoil";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 type GATEWAY = {
   id: string;
@@ -31,7 +32,10 @@ export default function Terminate() {
   const deleteGateway = async () => {
     setLoading(true);
     try {
-      const response = await _deleteTerminal({ ...gateway, passphrase });
+      const response = await axios.post("/api/terminate", {
+        ...gateway,
+        passphrase,
+      });
       response?.data && setLoading(false);
       router.push("/gateways");
       toast.success("Gateway successfully deleted!");
