@@ -207,9 +207,9 @@ export default function Dashboard() {
             ))}
           </div> */}
 
-          <div className="w-[100%] py-6">
+          <div className="w-[100%] py-6 space-y-4">
             <div
-              className=" w-[100%] flex flex-col space-y-6 overflow-x-scroll shadow"
+              className=" w-[100%] flex flex-col space-y-6 overflow-x-scroll shadow no-scrollbar"
               ref={dropdownRef}
             >
               <table className="table-auto md:w-[180%] w-full border-separate border-spacing-0.5">
@@ -276,8 +276,15 @@ export default function Dashboard() {
                 </tbody>
               </table>
             </div>
+            <div className="w-full ">
+              <h5>
+                
+              </h5>
+                [⬇️ Download Key File]
+            </div>
           </div>
         </div>
+
       </div>
       <Modal trigger={trigger} cname="w-full justify-center flex items-center">
         <GatewayAccount gateway={gateway} setTrigger={setTrigger} />
