@@ -1,96 +1,108 @@
-import React, { useRef } from 'react'
-import BlogPreview from './BlogPreview'
+import React, { useRef } from "react";
+import BlogPreview from "./BlogPreview";
 
 interface BlogPost {
-  id: string
-  title: string
-  date: string
-  author: string
-  description: string
-  image: string
+  id: string;
+  title: string;
+  date: string;
+  author: string;
+  description: string;
+  image: string;
 }
 
 const blogPosts = [
-    {
-      id: 'year-end-update-2024',
-      title: '2024 Year-End Update: Real-time AI Launch',
-      date: 'Dec 16, 2024',
-      author: 'Livepeer Team',
-      description: "As 2024 comes to a close, we're excited to share the latest updates...",
-      image: '/images/year-end-2024.jpg',
-      content: (
-        <>
-          <p>As 2024 comes to a close, we're excited to share the latest updates...</p>
-          {/* Add more content */}
-        </>
-      )
-    },
-    {
-      id: 'year-end-update-2024',
-      title: '2024 Year-End Update: Real-time AI Launch',
-      date: 'Dec 16, 2024',
-      author: 'Livepeer Team',
-      description: "As 2024 comes to a close, we're excited to share the latest updates...",
-      image: '/images/year-end-2024.jpg',
-      content: (
-        <>
-          <p>As 2024 comes to a close, we're excited to share the latest updates...</p>
-          {/* Add more content */}
-        </>
-      )
-    },
-    {
-      id: 'year-end-update-2024',
-      title: '2024 Year-End Update: Real-time AI Launch',
-      date: 'Dec 16, 2024',
-      author: 'Livepeer Team',
-      description: "As 2024 comes to a close, we're excited to share the latest updates...",
-      image: '/images/year-end-2024.jpg',
-      content: (
-        <>
-          <p>As 2024 comes to a close, we're excited to share the latest updates...</p>
-          {/* Add more content */}
-        </>
-      )
-    },
-    // Add more blog posts
-  ]
+  {
+    id: "year-end-update-2024",
+    title: "2024 Year-End Update: Real-time AI Launch",
+    date: "Dec 16, 2024",
+    author: "Livepeer Team",
+    description:
+      "As 2024 comes to a close, we're excited to share the latest updates...",
+    image: "/images/year-end-2024.jpg",
+    content: (
+      <>
+        <p>
+          As 2024 comes to a close, we&apos;re excited to share the latest
+          updates...
+        </p>
+        {/* Add more content */}
+      </>
+    ),
+  },
+  {
+    id: "year-end-update-2024",
+    title: "2024 Year-End Update: Real-time AI Launch",
+    date: "Dec 16, 2024",
+    author: "Livepeer Team",
+    description:
+      "As 2024 comes to a close, we're excited to share the latest updates...",
+    image: "/images/year-end-2024.jpg",
+    content: (
+      <>
+        <p>
+          As 2024 comes to a close, we&apos;re excited to share the latest
+          updates...
+        </p>
+        {/* Add more content */}
+      </>
+    ),
+  },
+  {
+    id: "year-end-update-2024",
+    title: "2024 Year-End Update: Real-time AI Launch",
+    date: "Dec 16, 2024",
+    author: "Livepeer Team",
+    description:
+      "As 2024 comes to a close, we're excited to share the latest updates...",
+    image: "/images/year-end-2024.jpg",
+    content: (
+      <>
+        <p>
+          As 2024 comes to a close, we&apos;re excited to share the latest
+          updates...
+        </p>
+        {/* Add more content */}
+      </>
+    ),
+  },
+  // Add more blog posts
+];
 
 export default function BlogPreviewList() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' })
+      scrollContainerRef.current.scrollBy({ left: -300, behavior: "smooth" });
     }
-  }
+  };
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' })
+      scrollContainerRef.current.scrollBy({ left: 300, behavior: "smooth" });
     }
-  }
+  };
 
   const scrollToArticle = (id: string) => {
-    const element = document.getElementById(id)
+    const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <div className="relative">
       <h2 className="text-xl font-bold mb-4">Latest Posts</h2>
-      
+
       {/* Scroll Controls */}
       <div className="hidden lg:flex justify-between absolute top-1/2 -translate-y-1/2 w-full z-10">
-        <button 
+        <button
           onClick={scrollLeft}
           className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transform -translate-x-4"
         >
           ←
         </button>
-        <button 
+        <button
           onClick={scrollRight}
           className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transform translate-x-4"
         >
@@ -99,7 +111,7 @@ export default function BlogPreviewList() {
       </div>
 
       {/* Preview List */}
-      <div 
+      <div
         ref={scrollContainerRef}
         className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide"
       >
@@ -112,5 +124,5 @@ export default function BlogPreviewList() {
         ))}
       </div>
     </div>
-  )
-} 
+  );
+}

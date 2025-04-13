@@ -277,10 +277,16 @@ export default function Dashboard() {
               </table>
             </div>
             <div className="w-full ">
-              <h5>
-                
-              </h5>
-                [⬇️ Download Key File]
+            <h5 className="text-sm cursor-pointer hover:underline hover:text-[#58815794]"
+                 onClick={() => {
+                   const url = new URL('http://98.84.138.196:3005/api/v1/download_key');
+                    url.searchParams.append('gateway_name',gateway?.title);
+                    window.open(url.toString(), '_blank');
+                 }}
+              >
+              [ 🔒 Download Key File ]
+            </h5>
+            
             </div>
           </div>
         </div>
@@ -328,7 +334,7 @@ const GatewayAccount = ({
         </div>
         <div className="flex flex-col space-y-3 items-center">
           <h5
-            className="text-sm hover:underline font-mono"
+            className="text-sm hover:underline cursor-pointer font-mono"
             onClick={() =>
               router.push(
                 `/cmd~?id=${gateway.id}&name=${gateway.title}&ip=${
@@ -340,7 +346,7 @@ const GatewayAccount = ({
             Generate ETH Account
           </h5>
           <h5
-            className="text-sm hover:underline font-mono"
+            className="text-sm hover:underline cursor-pointer font-mono"
             onClick={() =>
               router.push(
                 `/cmd~?id=${gateway.id}&name=${gateway.title}&ip=${

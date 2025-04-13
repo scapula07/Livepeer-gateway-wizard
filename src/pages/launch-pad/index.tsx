@@ -7,17 +7,19 @@ import Configuration from "@/components/launchPad/configuration";
 import Loader from "@/components/launchPad/loader";
 import { _deploy } from "@/lib/api/gateway.api";
 import { DeploymentParams } from "@/lib/api/types";
-import { useRouter } from "next/router";
 import ErrorAlert from "@/components/ui/error-alert";
 import { gatewayApi } from "@/firebase/gateway";
 import { useUser } from "@/hooks/useUser";
 import axios from "axios";
+import { getGatewayStatus } from "@/lib/utils";
 
 export default function LaunchPad() {
   const [next, setNext] = useState(1);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [progress, setProgress] = useState(0);
+  const [showProgress, setShowProgress] = useState(false);
 
   const { user } = useUser();
 
@@ -34,13 +36,55 @@ export default function LaunchPad() {
 
   const launch = async () => {
     setLoading(true);
+    setError(null);
+    setProgress(0);
+    setShowProgress(false);
+
     try {
       const gatewayResponse = await gatewayApi.createInstance(user?.id);
-      const newData = { ...data, id: gatewayResponse.data?.id };
+      const id = gatewayResponse.data?.id;
+      const newData = { ...data, id };
       setData(newData);
-      setNext(3);
+
       const response = await axios.post("/api/deploy", newData);
-      response?.data && setLoading(false);
+      if (!response?.data) {
+        setError("Deployment failed");
+        return;
+      }
+
+      setNext(3);
+      setShowProgress(true);
+
+      let currentProgress = 0;
+      const increment = 1;
+      const updateInterval = 3000;
+
+      const interval = setInterval(async () => {
+        const currentStatus = await getGatewayStatus(id);
+
+        if (currentStatus === "running") {
+          setProgress(100);
+          clearInterval(interval);
+          setShowProgress(false);
+          setLoading(false);
+          return;
+        }
+
+        currentProgress += increment;
+
+        if (currentProgress >= 95) {
+          if (currentStatus !== "running") {
+            setProgress(95);
+          } else {
+            setProgress(100);
+            clearInterval(interval);
+            setShowProgress(false);
+            setLoading(false);
+          }
+        } else {
+          setProgress(currentProgress);
+        }
+      }, updateInterval);
     } catch (e: any) {
       setError(e.message);
       setLoading(false);
@@ -103,7 +147,13 @@ export default function LaunchPad() {
                 />
               )}
               {next === 3 && (
-                <Loader data={data} isLoading={isLoading} id={data.id} />
+                <Loader
+                  data={data}
+                  isLoading={isLoading}
+                  progress={Math.round(progress)}
+                  showProgress={showProgress}
+                  id={data.id}
+                />
               )}
               {next != 3 && (
                 <div className="w-full flex justify-end space-x-4 py-4">
