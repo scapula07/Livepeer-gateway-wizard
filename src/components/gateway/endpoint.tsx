@@ -7,7 +7,7 @@ export default function Endpoint() {
   const gateway = useRecoilValue(gatewayStore) as { ip: "" };
   const copyToClipboard = () => {
     navigator.clipboard
-      .writeText(`rtmp://${gateway?.ip}:1935/abcd`)
+      .writeText(`rtmp://${gateway?.ip}:1935/mystream`)
       .then(() => alert("Rtmp url copied to clipboard!"))
       .catch((err) => console.error("Failed to copy:", err));
   };
