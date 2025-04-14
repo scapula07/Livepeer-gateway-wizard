@@ -304,9 +304,9 @@ export default function Dashboard() {
             <div className="w-full ">
             <h5 className="text-sm cursor-pointer hover:underline hover:text-[#58815794]"
                  onClick={() => {
-                   const url = new URL('http://98.84.138.196:3005/api/v1/download_key');
-                    url.searchParams.append('gateway_name',gateway?.title);
-                    window.open(url.toString(), '_blank');
+                  const url = new URL('/api/downloadkey', window.location.origin);
+                  url.searchParams.append('gateway_name', gateway?.title);
+                  window.open(url.toString(), '_blank');              
                  }}
               >
               [ 🔒 Download Key File ]
