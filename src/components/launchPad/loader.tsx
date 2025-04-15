@@ -11,19 +11,19 @@ export default function Loader({
   id,
   progress,
   showProgress,
-  deploymentFailed
+  deploymentFailed,
 }: {
   data: DeploymentParams;
   isLoading: boolean;
   id: string;
   progress: number;
   showProgress: boolean;
-  deploymentFailed:boolean
+  deploymentFailed: boolean;
 }) {
   return (
     <div className="w-full h-[50vh] md:py-20 py-5">
       {showProgress ? (
-        <div className="w-2/3 mx-auto px-5 pt-6 pb-10 shadow rounded flex flex-col space-y-5">
+        <div className="md:w-2/3 w-full mx-auto px-5 pt-6 pb-10 shadow rounded flex flex-col space-y-5">
           <h2 className="text-center font-bold text-2xl">
             Preparing your dashboard... {progress}%
           </h2>
@@ -35,13 +35,7 @@ export default function Loader({
           </div>
         </div>
       ) : (
-        <>
-        {deploymentFailed?
-              <Retry id={id}/>
-              :
-              <Deployed id={id} />
-           }             
-        </>
+        <>{deploymentFailed ? <Retry id={id} /> : <Deployed id={id} />}</>
       )}
     </div>
   );
@@ -71,33 +65,34 @@ const Deployed = ({ id }: { id: string }) => {
   );
 };
 
-const Retry=({ id }: { id: string })=>{
+const Retry = ({ id }: { id: string }) => {
   const { replace } = useRouter();
-  const [isLoading,setLoading]=useState(false)
-  const retry= async() => {
-    setLoading(true)
-    try{
-      const res=await gatewayApi.deleteInstance(id)
-      res&&replace("/launch-pad/");
-      setLoading(false)
-    }catch(e){
-      console.log(e)
-      setLoading(false)
+  const [isLoading, setLoading] = useState(false);
+  const retry = async () => {
+    setLoading(true);
+    try {
+      const res = await gatewayApi.deleteInstance(id);
+      res && replace("/launch-pad/");
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
     }
   };
-   return(
+  return (
     <div className="w-full h-[50vh] md:py-20 py-5">
-        <div className="w-2/3 mx-auto px-5 pt-6 pb-10 shadow rounded flex flex-col items-center space-y-5">
-            <h2 className="text-center font-bold text-2xl text-red-600">
-                Deployment Failed  😞
-            </h2>
-           
-                <button className="bg-[#58815794] px-8 py-2 rounded-xl text-sm hover:bg-black hover:text-white " 
-                  onClick={retry}
-                 >
-                  Retry {isLoading&&<BeatLoader size={6}/>}
-                </button>
-          </div>
+      <div className="w-2/3 mx-auto px-5 pt-6 pb-10 shadow rounded flex flex-col items-center space-y-5">
+        <h2 className="text-center font-bold text-2xl text-red-600">
+          Deployment Failed 😞
+        </h2>
+
+        <button
+          className="bg-[#58815794] px-8 py-2 rounded-xl text-sm hover:bg-black hover:text-white "
+          onClick={retry}
+        >
+          Retry {isLoading && <BeatLoader size={6} />}
+        </button>
       </div>
-    )
-}
+    </div>
+  );
+};

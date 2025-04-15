@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { getAccessToken } from '../utils'
 
-const baseUrl = "http://98.84.138.196:3005/api/v1";
+const baseUrl = "https://api.gwid.io/api/v1";
 
 const headers = {
   "Access-Control-Allow-Origin": true,
